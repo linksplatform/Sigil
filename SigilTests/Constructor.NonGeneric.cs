@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace SigilTests
 {
     public partial class Constructor
     {
-        [TestMethod]
+        [Test]
         public void ParameterlessNonGeneric()
         {
             var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);
@@ -38,7 +38,7 @@ namespace SigilTests
             Assert.AreEqual(123, (int)fooGet.GetValue(inst));
         }
 
-        [TestMethod]
+        [Test]
         public void TwoParametersNonGeneric()
         {
             var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);

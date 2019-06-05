@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace SigilTests
 {
     public partial class TryCatchFinally
     {
-        [TestMethod]
+        [Test]
         public void SimpleNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), Type.EmptyTypes, "E1");
@@ -35,7 +35,7 @@ namespace SigilTests
             Assert.AreEqual("Whatever", d1());
         }
 
-        [TestMethod]
+        [Test]
         public void FinallyNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), Type.EmptyTypes, "E1");
@@ -67,7 +67,7 @@ namespace SigilTests
             Assert.AreEqual("Finally!", d1());
         }
 
-        [TestMethod]
+        [Test]
         public void IsCatchAllNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(void), Type.EmptyTypes, "E1");

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class Multiply
     {
-        [TestMethod]
+        [Test]
         public void SimpleNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(double), new [] { typeof(double), typeof(double) }, "E1");
@@ -24,7 +24,7 @@ namespace SigilTests
             Assert.AreEqual(3.14 * 1.59, d1(3.14, 1.59));
         }
 
-        [TestMethod]
+        [Test]
         public void OverflowNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(double), new [] { typeof(double), typeof(double) }, "E1");
@@ -38,7 +38,7 @@ namespace SigilTests
             Assert.AreEqual(3.14 * 1.59, d1(3.14, 1.59));
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedOverflowNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(double), new [] { typeof(double), typeof(double) }, "E1");

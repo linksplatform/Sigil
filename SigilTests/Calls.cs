@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class Calls
     {
         public class ClassWithCtor
@@ -22,7 +22,7 @@ namespace SigilTests
             public string Value { get; private set; }
         }
 
-        [TestMethod]
+        [Test]
         public void CallBaseConstructor()
         {
             AssemblyBuilder assembly = Errors.DefineDynamicAssembly();
@@ -44,11 +44,11 @@ namespace SigilTests
             Type createdType = type.CreateType();
 
             ClassWithCtor instance = (ClassWithCtor)Activator.CreateInstance(createdType);
-            Assert.IsInstanceOfType(instance, createdType);
+            Assert.IsInstanceOf(createdType, instance);
             Assert.AreEqual("abc123", instance.Value);
         }
 
-        [TestMethod]
+        [Test]
         public void CallBaseConstructorNonGeneric()
         {
             AssemblyBuilder assembly = Errors.DefineDynamicAssembly();
@@ -70,11 +70,11 @@ namespace SigilTests
             Type createdType = type.CreateType();
 
             ClassWithCtor instance = (ClassWithCtor)Activator.CreateInstance(createdType);
-            Assert.IsInstanceOfType(instance, createdType);
+            Assert.IsInstanceOf(createdType, instance);
             Assert.AreEqual("abc123", instance.Value);
         }
 
-        [TestMethod]
+        [Test]
         public void ValueTypeCallIndirect()
         {
             var hasValue = typeof(int?).GetProperty("HasValue");
@@ -93,7 +93,7 @@ namespace SigilTests
             Assert.IsFalse(d1(null));
         }
 
-        [TestMethod]
+        [Test]
         public void ValueTypeCallVirtual()
         {
             var hasValue = typeof(int?).GetProperty("HasValue");
@@ -110,7 +110,7 @@ namespace SigilTests
             Assert.IsFalse(d1(null));
         }
 
-        [TestMethod]
+        [Test]
         public void ValueTypeCall()
         {
             var hasValue = typeof(int?).GetProperty("HasValue");
@@ -127,7 +127,7 @@ namespace SigilTests
             Assert.IsFalse(d1(null));
         }
 
-        [TestMethod]
+        [Test]
         public void MultipleTailcalls()
         {
             var toString = typeof(object).GetMethod("ToString");
@@ -181,7 +181,7 @@ namespace SigilTests
             Assert.AreEqual("ldarg.0\r\nldc.i4.0\r\nbeq.s l1\r\nldarg.0\r\nldc.i4.1\r\nbeq.s l2\r\nldarg.0\r\nldc.i4.2\r\nbeq.s l3\r\nldstr 'Foo'\r\ntail.call System.String ToString()\r\nret\r\n\r\nl1:\r\nldc.i4.s 123\r\nbox System.Int32\r\ntail.callvirt System.String ToString()\r\nret\r\n\r\nl2:\r\nnewobj Void .ctor()\r\ndup\r\nldvirtftn System.String ToString()\r\ncalli Standard, HasThis System.String \r\nret\r\n\r\nl3:\r\nldstr ''\r\nret\r\n", instrs);
         }
 
-        [TestMethod]
+        [Test]
         public void PartialTypeMapping2()
         {
             {
@@ -220,7 +220,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void PartialTypeMapping1()
         {
             {
@@ -271,7 +271,7 @@ namespace SigilTests
             _EnumParamsMethod = foo;
         }
 
-        [TestMethod]
+        [Test]
         public void EnumParams()
         {
             var e1 = Emit<Action<int>>.NewDynamicMethod();
@@ -296,7 +296,7 @@ namespace SigilTests
             DoesNothingWasCalled = true;
         }
 
-        [TestMethod]
+        [Test]
         public void VoidStatic()
         {
             DoesNothingWasCalled = false;
@@ -319,7 +319,7 @@ namespace SigilTests
             public int Go() { return 314159; }
         }
 
-        [TestMethod]
+        [Test]
         public void VoidInstance()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod("E1");
@@ -337,7 +337,7 @@ namespace SigilTests
             public string Go(int hello) { return hello.ToString(); }
         }
 
-        [TestMethod]
+        [Test]
         public void StringInstance()
         {
             var e1 = Emit<Func<string>>.NewDynamicMethod("E1");
@@ -356,7 +356,7 @@ namespace SigilTests
             return int.Parse(a) + b + (int)c;
         }
 
-        [TestMethod]
+        [Test]
         public void MultiParam()
         {
             var func = typeof(Calls).GetMethod("MultiParamFunc");
@@ -373,7 +373,7 @@ namespace SigilTests
             Assert.AreEqual(123 + 456 + 7, d1("123", 456, 7.89));
         }
 
-        [TestMethod]
+        [Test]
         public void DynamicRecursive()
         {
             var impl = Emit<Func<int,int>>.NewDynamicMethod("factorial");
@@ -399,7 +399,7 @@ namespace SigilTests
             Assert.IsFalse(instr.Contains("tail."));
         }
 
-        [TestMethod]
+        [Test]
         public void DynamicRecursiveTail()
         {
             var impl = Emit<Func<int, int, int>>.NewDynamicMethod("factorialImpl");
@@ -427,7 +427,7 @@ namespace SigilTests
             Assert.IsTrue(instr.Contains("tail."));
         }
 
-        [TestMethod]
+        [Test]
         public void MissingBoxDoesntFailValidation()
         {
             try

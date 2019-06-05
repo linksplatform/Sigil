@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class Tail
     {
         const string helloWorld = "Hello, World!";
@@ -22,7 +22,7 @@ namespace SigilTests
             writer.Write(buffer, 0, helloWorld.Length);
         }
 
-        [TestMethod]
+        [Test]
         public void TailBugWithRefArgs()
         {
             var bugCausingFuntion= typeof(Tail).GetMethod("BugCausingFuntion", BindingFlags.Static | BindingFlags.NonPublic);
@@ -54,7 +54,7 @@ namespace SigilTests
             public string String { get; set; }
         }
 
-        [TestMethod]
+        [Test]
         public void TailBugWithMismatchedReturnTypes()
         {
             var emit = Emit<Func<_TailBugWithMismatchedReturnTypes>>.NewDynamicMethod();
@@ -82,7 +82,7 @@ namespace SigilTests
             return "hello";
         }
 
-        [TestMethod]
+        [Test]
         public void TailCallReturnsAssignableButDifferent()
         {
             var mtd = typeof(Tail).GetMethod("_TailCallReturnsAssignableButDifferent", BindingFlags.Static | BindingFlags.NonPublic);

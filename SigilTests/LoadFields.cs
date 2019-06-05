@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class LoadFields
     {
         public class A
@@ -18,7 +18,7 @@ namespace SigilTests
             public static int Y;
         }
 
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var e1 = Emit<Func<A, int>>.NewDynamicMethod("E1");
@@ -46,7 +46,7 @@ namespace SigilTests
             public int X;
         }
 
-        [TestMethod]
+        [Test]
         public void ValueType()
         {
             var e1 = Emit<Func<B, int>>.NewDynamicMethod("E1");

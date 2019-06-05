@@ -14,9 +14,7 @@ namespace Sigil
         /// 
         /// This helper assumes a void return and no parameters.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(void), TypeHelpers.EmptyTypes);
@@ -30,9 +28,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and no parameters.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType));
@@ -44,9 +40,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1));
@@ -58,9 +52,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2));
@@ -72,9 +64,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3));
@@ -86,9 +76,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3, ParameterType4>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3), typeof(ParameterType4));
@@ -100,9 +88,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3, ParameterType4, ParameterType5>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3), typeof(ParameterType4), typeof(ParameterType5));
@@ -114,9 +100,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3, ParameterType4, ParameterType5, ParameterType6>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3), typeof(ParameterType4), typeof(ParameterType5), typeof(ParameterType6));
@@ -128,9 +112,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3, ParameterType4, ParameterType5, ParameterType6, ParameterType7>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3), typeof(ParameterType4), typeof(ParameterType5), typeof(ParameterType6), typeof(ParameterType7));
@@ -142,9 +124,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3, ParameterType4, ParameterType5, ParameterType6, ParameterType7, ParameterType8>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3), typeof(ParameterType4), typeof(ParameterType5), typeof(ParameterType6), typeof(ParameterType7), typeof(ParameterType8));
@@ -156,9 +136,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3, ParameterType4, ParameterType5, ParameterType6, ParameterType7, ParameterType8, ParameterType9>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3), typeof(ParameterType4), typeof(ParameterType5), typeof(ParameterType6), typeof(ParameterType7), typeof(ParameterType8), typeof(ParameterType9));
@@ -170,9 +148,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3, ParameterType4, ParameterType5, ParameterType6, ParameterType7, ParameterType8, ParameterType9, ParameterType10>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3), typeof(ParameterType4), typeof(ParameterType5), typeof(ParameterType6), typeof(ParameterType7), typeof(ParameterType8), typeof(ParameterType9), typeof(ParameterType10));
@@ -184,9 +160,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3, ParameterType4, ParameterType5, ParameterType6, ParameterType7, ParameterType8, ParameterType9, ParameterType10, ParameterType11>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3), typeof(ParameterType4), typeof(ParameterType5), typeof(ParameterType6), typeof(ParameterType7), typeof(ParameterType8), typeof(ParameterType9), typeof(ParameterType10), typeof(ParameterType11));
@@ -198,9 +172,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3, ParameterType4, ParameterType5, ParameterType6, ParameterType7, ParameterType8, ParameterType9, ParameterType10, ParameterType11, ParameterType12>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3), typeof(ParameterType4), typeof(ParameterType5), typeof(ParameterType6), typeof(ParameterType7), typeof(ParameterType8), typeof(ParameterType9), typeof(ParameterType10), typeof(ParameterType11), typeof(ParameterType12));
@@ -212,9 +184,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3, ParameterType4, ParameterType5, ParameterType6, ParameterType7, ParameterType8, ParameterType9, ParameterType10, ParameterType11, ParameterType12, ParameterType13>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3), typeof(ParameterType4), typeof(ParameterType5), typeof(ParameterType6), typeof(ParameterType7), typeof(ParameterType8), typeof(ParameterType9), typeof(ParameterType10), typeof(ParameterType11), typeof(ParameterType12), typeof(ParameterType13));
@@ -226,9 +196,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3, ParameterType4, ParameterType5, ParameterType6, ParameterType7, ParameterType8, ParameterType9, ParameterType10, ParameterType11, ParameterType12, ParameterType13, ParameterType14>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3), typeof(ParameterType4), typeof(ParameterType5), typeof(ParameterType6), typeof(ParameterType7), typeof(ParameterType8), typeof(ParameterType9), typeof(ParameterType10), typeof(ParameterType11), typeof(ParameterType12), typeof(ParameterType13), typeof(ParameterType14));
@@ -240,9 +208,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3, ParameterType4, ParameterType5, ParameterType6, ParameterType7, ParameterType8, ParameterType9, ParameterType10, ParameterType11, ParameterType12, ParameterType13, ParameterType14, ParameterType15>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3), typeof(ParameterType4), typeof(ParameterType5), typeof(ParameterType6), typeof(ParameterType7), typeof(ParameterType8), typeof(ParameterType9), typeof(ParameterType10), typeof(ParameterType11), typeof(ParameterType12), typeof(ParameterType13), typeof(ParameterType14), typeof(ParameterType15));
@@ -254,9 +220,7 @@ namespace Sigil
         /// 
         /// This helper assumes ReturnType as a return and parameters of the types given in ParameterType*.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public Emit<DelegateType> CallIndirect<ReturnType, ParameterType1, ParameterType2, ParameterType3, ParameterType4, ParameterType5, ParameterType6, ParameterType7, ParameterType8, ParameterType9, ParameterType10, ParameterType11, ParameterType12, ParameterType13, ParameterType14, ParameterType15, ParameterType16>(CallingConventions callConventions)
         {
             return CallIndirect(callConventions, typeof(ReturnType), typeof(ParameterType1), typeof(ParameterType2), typeof(ParameterType3), typeof(ParameterType4), typeof(ParameterType5), typeof(ParameterType6), typeof(ParameterType7), typeof(ParameterType8), typeof(ParameterType9), typeof(ParameterType10), typeof(ParameterType11), typeof(ParameterType12), typeof(ParameterType13), typeof(ParameterType14), typeof(ParameterType15), typeof(ParameterType16));
@@ -313,10 +277,13 @@ namespace Sigil
             IEnumerable<StackTransition> transitions;
             if (HasFlag(callConventions, CallingConventions.HasThis))
             {
-                var p = new List<Type>();
-                p.Add(typeof(NativeIntType));
-                p.AddRange(LinqAlternative.Reverse(parameterTypes).AsEnumerable());
-                p.Add(typeof(WildcardType));
+				var p = new List<Type>
+				{
+					typeof( NativeIntType ),
+					typeof(WildcardType)
+				};
+
+				p.AddRange(LinqAlternative.Reverse(parameterTypes).AsEnumerable());
 
                 if (returnType != typeof(void))
                 {
@@ -337,9 +304,12 @@ namespace Sigil
             }
             else
             {
-                var p = new List<Type>();
-                p.Add(typeof(NativeIntType));
-                p.AddRange(LinqAlternative.Reverse(parameterTypes).AsEnumerable());
+				var p = new List<Type>
+				{
+					typeof( NativeIntType )
+				};
+
+				p.AddRange(LinqAlternative.Reverse(parameterTypes).AsEnumerable());
 
                 if (returnType != typeof(void))
                 {

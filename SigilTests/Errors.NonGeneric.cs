@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class Errors
     {
-        [TestMethod]
+        [Test]
         public void NotDelegateNonGeneric()
         {
             try
@@ -26,7 +26,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void WrongReturnTypeNonGeneric()
         {
             try
@@ -46,7 +46,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void WrongParameterTypesNonGeneric()
         {
             {

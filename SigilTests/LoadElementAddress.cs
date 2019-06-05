@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class LoadElementAddress
     {
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var e1 = Emit<Func<int[], int, int>>.NewDynamicMethod("E1");
@@ -30,7 +30,7 @@ namespace SigilTests
             Assert.IsTrue(instrs.Contains("readonly."));
         }
 
-        [TestMethod]
+        [Test]
         public void NotReadonly()
         {
             var e1 = Emit<Action<int[], int>>.NewDynamicMethod("E1");
@@ -57,7 +57,7 @@ namespace SigilTests
             Assert.IsFalse(instrs.Contains("readonly."));
         }
 
-        [TestMethod]
+        [Test]
         public void ReadOnlyCall()
         {
             var toString = typeof(object).GetMethod("ToString");
@@ -77,7 +77,7 @@ namespace SigilTests
             Assert.IsTrue(instrs.Contains("readonly."));
         }
 
-        [TestMethod]
+        [Test]
         public void NotReadOnlyCall()
         {
             var toString = typeof(object).GetMethod("ToString");

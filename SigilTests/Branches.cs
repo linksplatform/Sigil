@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class Branches
     {
-        [TestMethod]
+        [Test]
         public void ExpectingNullType()
         {
             var strLen = typeof(string).GetProperty("Length");
@@ -35,7 +35,7 @@ namespace SigilTests
             // simply getting here w/o throwing an exception counts as "passing"
         }
 
-        [TestMethod]
+        [Test]
         public void Scan()
         {
             var terms = new[] { "hello", "world", "fizz", "buzz" };
@@ -78,7 +78,7 @@ namespace SigilTests
             Assert.AreEqual(3, d1("buzz"));
         }
 
-        [TestMethod]
+        [Test]
         public void ConditionalBranchOver()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod();
@@ -108,7 +108,7 @@ namespace SigilTests
             Assert.AreEqual(123 + 456, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void ManyConditional()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -136,7 +136,7 @@ namespace SigilTests
             d1();
         }
 
-        [TestMethod]
+        [Test]
         public void InMethod()
         {
             var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);
@@ -174,7 +174,7 @@ namespace SigilTests
             Assert.AreEqual("greater than", d1(50));
         }
 
-        [TestMethod]
+        [Test]
         public void BranchingOverExceptions()
         {
             {
@@ -254,7 +254,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LeaveDataOnStackBetweenBranches()
         {
             var il = Emit<Func<int>>.NewDynamicMethod("LeaveDataOnStackBetweenBranches");
@@ -278,7 +278,7 @@ namespace SigilTests
             Assert.AreEqual(4, i);
         }
 
-        [TestMethod]
+        [Test]
         public void LeaveDataOnStackBetweenBranches_OldSchool()
         {
             var dm = new System.Reflection.Emit.DynamicMethod("foo", typeof(int), null);
@@ -302,7 +302,7 @@ namespace SigilTests
             Assert.AreEqual(4, i);
         }
 
-        [TestMethod]
+        [Test]
         public void ShortForm()
         {
             {
@@ -340,7 +340,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ShortFormNoOptimizations()
         {
             {
@@ -378,7 +378,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BinaryInput()
         {
             var emit = typeof(Emit<Action>);
@@ -412,7 +412,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UnaryInput()
         {
             {
@@ -442,7 +442,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MultiLabel()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod("E1");
@@ -475,7 +475,7 @@ namespace SigilTests
             Assert.AreEqual(1, del());
         }
 
-        [TestMethod]
+        [Test]
         public void BrS()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod("E1");
@@ -498,7 +498,7 @@ namespace SigilTests
             Assert.AreEqual(456, del());
         }
 
-        [TestMethod]
+        [Test]
         public void Br()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod("E1");
@@ -523,7 +523,7 @@ namespace SigilTests
             Assert.AreEqual(111, del());
         }
 
-        [TestMethod]
+        [Test]
         public void BeqS()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod("E1");
@@ -545,7 +545,7 @@ namespace SigilTests
             Assert.AreEqual(314, del());
         }
 
-        [TestMethod]
+        [Test]
         public void Beq()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod("E1");
@@ -572,7 +572,7 @@ namespace SigilTests
             Assert.AreEqual(314, del());
         }
 
-        [TestMethod]
+        [Test]
         public void BigSwitch()
         {
             var e1 = Emit<Func<uint, uint>>.NewDynamicMethod();

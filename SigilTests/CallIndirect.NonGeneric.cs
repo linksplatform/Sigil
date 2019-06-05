@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class CallIndirect
     {
-        [TestMethod]
+        [Test]
         public void SimpleNonGeneric()
         {
             var foo = typeof(CallIndirect).GetMethod("Foo");
@@ -26,7 +26,7 @@ namespace SigilTests
             Assert.AreEqual("BarBarBar", d1());
         }
 
-        [TestMethod]
+        [Test]
         public void VirtualNonGeneric()
         {
             var toString = typeof(object).GetMethod("ToString");

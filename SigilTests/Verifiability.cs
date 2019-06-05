@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace SigilTests
     /// and then confirm that Sigil won't allow that instruction (or instruction sequence) when in a "verified instructions only" mode.
     /// And then that the same sequence actually works in "unverified" mode.
     /// </summary>
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class Verifiability
     {
         class _Usage
@@ -30,7 +30,7 @@ namespace SigilTests
 #pragma warning restore 0649
         }
 
-        [TestMethod]
+        [Test]
         public void Usage()
         {
             var e1 = Emit<Func<_Usage, string>>.NewDynamicMethod();
@@ -66,7 +66,7 @@ namespace SigilTests
 #pragma warning restore 0649
         }
 
-        [TestMethod]
+        [Test]
         public void FollowTrace()
         {
             var e1 = Emit<Func<_FollowTrace, _FollowTrace, int>>.NewDynamicMethod();
@@ -132,7 +132,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Ldelema()
         {
             try
@@ -186,7 +186,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Calli()
         {
             var writeLine = typeof(Console).GetMethod("WriteLine", Type.EmptyTypes);
@@ -241,7 +241,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Localloc()
         {
             try
@@ -292,7 +292,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Cpblk()
         {
             var src = Marshal.AllocHGlobal(8);
@@ -358,7 +358,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Initblk()
         {
             var blk = Marshal.AllocHGlobal(8);
@@ -422,7 +422,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Jmp()
         {
             var writeLine = typeof(Console).GetMethod("WriteLine", Type.EmptyTypes);
@@ -475,7 +475,7 @@ namespace SigilTests
             public readonly int Field;
         }
 
-        [TestMethod]
+        [Test]
         public void LdfldaInitOnly()
         {
             var fld = typeof(LdfldaClass).GetField("Field");
@@ -529,7 +529,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void StrictBranchVerification()
         {
             // See: https://github.com/kevin-montrose/Sigil/issues/15

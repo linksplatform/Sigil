@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class Shifts
     {
-        [TestMethod]
+        [Test]
         public void LeftNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(int), typeof(int) }, "E1");
@@ -25,7 +25,7 @@ namespace SigilTests
             Assert.AreEqual(5 << 2, d1(5, 2));
         }
 
-        [TestMethod]
+        [Test]
         public void RightNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(int), typeof(int) }, "E1");
@@ -40,7 +40,7 @@ namespace SigilTests
             Assert.AreEqual(8675309 >> 5, d1(8675309, 5));
         }
 
-        [TestMethod]
+        [Test]
         public void RightUnsignedNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(uint), new [] { typeof(uint), typeof(uint) }, "E1");

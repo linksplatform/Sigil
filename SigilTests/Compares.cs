@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class Compares
     {
-        [TestMethod]
+        [Test]
         public void Equals()
         {
             var e1 = Emit<Func<int, int, bool>>.NewDynamicMethod();
@@ -25,7 +25,7 @@ namespace SigilTests
             Assert.IsFalse(d1(1, 2));
         }
 
-        [TestMethod]
+        [Test]
         public void GreaterThan()
         {
             var e1 = Emit<Func<int, int, bool>>.NewDynamicMethod();
@@ -40,7 +40,7 @@ namespace SigilTests
             Assert.IsFalse(d1(1, 1));
         }
 
-        [TestMethod]
+        [Test]
         public void LessThan()
         {
             var e1 = Emit<Func<int, int, bool>>.NewDynamicMethod();
@@ -55,7 +55,7 @@ namespace SigilTests
             Assert.IsFalse(d1(1, 1));
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedCompareGreaterThan()
         {
             var e1 = Emit<Func<uint, uint, bool>>.NewDynamicMethod();
@@ -70,7 +70,7 @@ namespace SigilTests
             Assert.IsFalse(d1(1, 1));
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedCompareLessThan()
         {
             var e1 = Emit<Func<uint, uint, bool>>.NewDynamicMethod();

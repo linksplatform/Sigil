@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class Unbox
     {
-        [TestMethod]
+        [Test]
         public void JustUnboxNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(object) });
@@ -24,7 +24,7 @@ namespace SigilTests
             Assert.AreEqual(1234567, d1(1234567));
         }
 
-        [TestMethod]
+        [Test]
         public void UnboxAnyNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(object) });

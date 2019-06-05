@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class Boxing
     {
-        [TestMethod]
+        [Test]
         public void NullableIntNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(object), new [] { typeof(int?) }, "E1");
@@ -24,7 +24,7 @@ namespace SigilTests
             Assert.AreEqual((object)((int?)null), d1(null));
         }
 
-        [TestMethod]
+        [Test]
         public void BooleanNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(object), new [] { typeof(bool) }, "E1");
@@ -38,7 +38,7 @@ namespace SigilTests
             Assert.AreEqual((object)false, d1(false));
         }
 
-        [TestMethod]
+        [Test]
         public void SimpleNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(object), Type.EmptyTypes, "E1");

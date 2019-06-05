@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace SigilTests
 {
     // These tests aren't about the interface, but about proving some internal details are robust.
     // Anything used in these tests isn't guaranteed to work between versions, and shouldn't be relied upon.
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class Internals
     {
         public static double _OrderSelect(Tuple<int, double> i)
@@ -26,7 +26,7 @@ namespace SigilTests
             return Delegate.CreateDelegate(delegateType, method);
 #endif
         }
-        [TestMethod]
+        [Test]
         public void OrderBy()
         {
             var sigilTypes = GetAssemblyTypes(typeof(Emit<>));
@@ -81,7 +81,7 @@ namespace SigilTests
             return type.Assembly.GetTypes();
 #endif
         }
-        [TestMethod]
+        [Test]
         public void OrderByDescending()
         {
             var sigilTypes = GetAssemblyTypes(typeof(Emit<>));

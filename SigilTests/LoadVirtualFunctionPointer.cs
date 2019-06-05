@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sigil;
 
 namespace SigilTests
 {
-    [TestClass]
+    [TestFixture]
     public partial class LoadVirtualFunctionPointer
     {
-        [TestMethod]
+        [Test]
         public void CanValidateUnbaked()
         {
             var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("MethodBuilders"), AssemblyBuilderAccess.Run);

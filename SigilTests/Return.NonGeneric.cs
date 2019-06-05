@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class Return
     {
-        [TestMethod]
+        [Test]
         public void NonTerminalNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(void), Type.EmptyTypes);
@@ -29,7 +29,7 @@ namespace SigilTests
             d1();
         }
 
-        [TestMethod]
+        [Test]
         public void EmptyNonGeneric()
         {
             var il = Emit.NewDynamicMethod(typeof(void), Type.EmptyTypes,"Empty");
@@ -40,7 +40,7 @@ namespace SigilTests
             del();
         }
 
-        [TestMethod]
+        [Test]
         public void ConstantNonGeneric()
         {
             var il = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes,"Constant");

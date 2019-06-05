@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class CastClass
     {
-        [TestMethod]
+        [Test]
         public void VeryLongMethod()
         {
             var e1 = Emit<Func<List<string>, List<string>>>.NewDynamicMethod();
@@ -36,7 +36,7 @@ namespace SigilTests
             Assert.AreEqual(x, d1(x));
         }
 
-        [TestMethod]
+        [Test]
         public void DisableEliding()
         {
             var e1 = Emit<Func<string, string>>.NewDynamicMethod();
@@ -52,7 +52,7 @@ namespace SigilTests
             Assert.IsTrue(instrs.Contains("castclass"));
         }
 
-        [TestMethod]
+        [Test]
         public void Elide()
         {
             var e1 = Emit<Func<string, string>>.NewDynamicMethod();
@@ -68,7 +68,7 @@ namespace SigilTests
             Assert.IsFalse(instrs.Contains("castclass"));
         }
 
-        [TestMethod]
+        [Test]
         public void ElideBranched()
         {
             var e1 = Emit<Func<string, string>>.NewDynamicMethod();
@@ -97,7 +97,7 @@ namespace SigilTests
             Assert.IsFalse(instrs.Contains("castclass"));
         }
 
-        [TestMethod]
+        [Test]
         public void ElideManyBranched()
         {
             var e1 = Emit<Func<string, string>>.NewDynamicMethod();
@@ -132,7 +132,7 @@ namespace SigilTests
             Assert.IsFalse(instrs.Contains("castclass"));
         }
 
-        [TestMethod]
+        [Test]
         public void ManyBranched()
         {
             var e1 = Emit<Func<object, string>>.NewDynamicMethod();
@@ -167,7 +167,7 @@ namespace SigilTests
             Assert.IsTrue(instrs.Contains("castclass"));
         }
 
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var e1 = Emit<Func<object, string>>.NewDynamicMethod();

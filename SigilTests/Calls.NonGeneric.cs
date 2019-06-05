@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace SigilTests
 {
     public partial class Calls
     {
-        [TestMethod]
+        [Test]
         public void ValueTypeCallIndirectNonGeneric()
         {
             var hasValue = typeof(int?).GetProperty("HasValue");
@@ -31,7 +31,7 @@ namespace SigilTests
             Assert.IsFalse(d1(null));
         }
 
-        [TestMethod]
+        [Test]
         public void ValueTypeCallVirtualNonGeneric()
         {
             var hasValue = typeof(int?).GetProperty("HasValue");
@@ -48,7 +48,7 @@ namespace SigilTests
             Assert.IsFalse(d1(null));
         }
 
-        [TestMethod]
+        [Test]
         public void ValueTypeCallNonGeneric()
         {
             var hasValue = typeof(int?).GetProperty("HasValue");
@@ -65,7 +65,7 @@ namespace SigilTests
             Assert.IsFalse(d1(null));
         }
 
-        [TestMethod]
+        [Test]
         public void MultipleTailcallsNonGeneric()
         {
             var toString = typeof(object).GetMethod("ToString");
@@ -119,7 +119,7 @@ namespace SigilTests
             Assert.AreEqual("ldarg.0\r\nldc.i4.0\r\nbeq.s l1\r\nldarg.0\r\nldc.i4.1\r\nbeq.s l2\r\nldarg.0\r\nldc.i4.2\r\nbeq.s l3\r\nldstr 'Foo'\r\ntail.call System.String ToString()\r\nret\r\n\r\nl1:\r\nldc.i4.s 123\r\nbox System.Int32\r\ntail.callvirt System.String ToString()\r\nret\r\n\r\nl2:\r\nnewobj Void .ctor()\r\ndup\r\nldvirtftn System.String ToString()\r\ncalli Standard, HasThis System.String \r\nret\r\n\r\nl3:\r\nldstr ''\r\nret\r\n", instrs);
         }
 
-        [TestMethod]
+        [Test]
         public void PartialTypeMapping2NonGeneric()
         {
             {
@@ -158,7 +158,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void PartialTypeMapping1NonGeneric()
         {
             {
@@ -197,7 +197,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void EnumParamsNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(void), new [] { typeof(int) });
@@ -216,7 +216,7 @@ namespace SigilTests
             Assert.AreEqual(EnumParamsEnum.B, _EnumParamsMethod.Value);
         }
 
-        [TestMethod]
+        [Test]
         public void VoidStaticNonGeneric()
         {
             DoesNothingWasCalled = false;
@@ -234,7 +234,7 @@ namespace SigilTests
             Assert.IsTrue(DoesNothingWasCalled);
         }
 
-        [TestMethod]
+        [Test]
         public void VoidInstanceNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes, "E1");
@@ -247,7 +247,7 @@ namespace SigilTests
             Assert.AreEqual(314159, del());
         }
 
-        [TestMethod]
+        [Test]
         public void StringInstanceNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), Type.EmptyTypes, "E1");
@@ -261,7 +261,7 @@ namespace SigilTests
             Assert.AreEqual("8675309", del());
         }
 
-        [TestMethod]
+        [Test]
         public void MultiParamNonGeneric()
         {
             var func = typeof(Calls).GetMethod("MultiParamFunc");
@@ -278,7 +278,7 @@ namespace SigilTests
             Assert.AreEqual(123 + 456 + 7, d1("123", 456, 7.89));
         }
 
-        [TestMethod]
+        [Test]
         public void DynamicRecursiveNonGeneric()
         {
             var impl = Emit.NewDynamicMethod(typeof(int), new[] { typeof(int) }, "factorial");

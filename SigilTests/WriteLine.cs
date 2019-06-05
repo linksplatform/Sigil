@@ -4,13 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sigil;
 using System.Reflection;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class WriteLine
     {
         internal static MethodInfo GetStreamWriterFlush()
@@ -29,7 +29,7 @@ namespace SigilTests
 #if WTFDNXTEST
         [ActualTestMethod]
 #elif !COREFX
-        [TestMethod]
+        [Test]
 #endif
         public void WriteLineFormat()
         {
@@ -83,7 +83,7 @@ namespace SigilTests
 #if WTFDNXTEST
         [ActualTestMethod]
 #elif !COREFX
-        [TestMethod]
+        [Test]
 #endif
         public void WriteLineSimple()
         {

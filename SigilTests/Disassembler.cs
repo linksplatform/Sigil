@@ -1,5 +1,6 @@
-﻿#if !COREFXTODO // see https://github.com/dotnet/corefx/issues/4543 item 1
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿// TODO: see https://github.com/dotnet/corefx/issues/4543 item 1
+#if !COREFX
+using NUnit.Framework;
 using System;
 using System.Reflection.Emit;
 using System.Linq;
@@ -8,13 +9,13 @@ using System.IO;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class Disassembler
     {
         // these only work in Release because the IL generated differs in Debug, so exact
         // matches aren't gonna work
 #if !DEBUG
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             Func<int, int, int> d1 = (a, b) => a + b;
@@ -70,7 +71,7 @@ namespace SigilTests
             public volatile int Foo;
         }
 
-        [TestMethod]
+        [Test]
         public void Volatile()
         {
             Action<_Volatile, int> d1 = (a, b) => { var x = a.Foo; x += b; a.Foo = b; };
@@ -106,7 +107,7 @@ namespace SigilTests
             Assert.IsTrue(isValid, instrs);
         }
 
-        [TestMethod]
+        [Test]
         public void Branch()
         {
             Func<int, int, int> d1 = (a, b) =>
@@ -146,7 +147,7 @@ namespace SigilTests
             Assert.IsTrue(isValid, instrs);
         }
 
-        [TestMethod]
+        [Test]
         public void TryCatch()
         {
             Func<int, int, string> d1 =
@@ -188,7 +189,7 @@ namespace SigilTests
             Assert.IsTrue(isValid, instrs);
         }
 
-        [TestMethod]
+        [Test]
         public void TryFinally()
         {
             Func<int, int, double> d1 =
@@ -234,7 +235,7 @@ namespace SigilTests
             Assert.IsTrue(isValid, instrs);
         }
 
-        [TestMethod]
+        [Test]
         public void TryCatchFinally()
         {
             Func<int, int, double> d1 =
@@ -284,7 +285,7 @@ namespace SigilTests
             Assert.IsTrue(isValid, instrs);
         }
 
-        [TestMethod]
+        [Test]
         public void ComplicatedTryCatchFinally()
         {
             Func<int, int, string> d1 =
@@ -352,7 +353,7 @@ namespace SigilTests
             Assert.IsTrue(isValid, instrs);
         }
 
-        [TestMethod]
+        [Test]
         public void LoadLength()
         {
             Func<int[], int, int> d1 =
@@ -393,7 +394,7 @@ namespace SigilTests
             Assert.IsTrue(isValid, instrs);
         }
 
-        [TestMethod]
+        [Test]
         public void LoadAndStoreElement()
         {
             Func<string[], int, string> d1 =
@@ -443,7 +444,7 @@ namespace SigilTests
 
         delegate string LoadAndStoreIndictDel(ref string arr, int at);
 
-        [TestMethod]
+        [Test]
         public void LoadAndStoreIndict()
         {
             LoadAndStoreIndictDel d1 =
@@ -492,7 +493,7 @@ namespace SigilTests
             public long NotUsed { get; set; }
         }
 
-        [TestMethod]
+        [Test]
         public void Complex()
         {
             var rand = new Random();
@@ -530,7 +531,7 @@ namespace SigilTests
             Assert.IsFalse(ops.CanEmit);
         }
 
-        [TestMethod]
+        [Test]
         public void UsedMethods()
         {
             Func<string, int> del =
@@ -551,7 +552,7 @@ namespace SigilTests
             Assert.IsTrue(ops.CanEmit);
         }    
 
-        [TestMethod]
+        [Test]
         public void SingleFloat()
         {
             Func<float> del = () => 0.5f;

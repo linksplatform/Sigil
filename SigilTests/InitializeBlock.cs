@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -8,10 +8,10 @@ using System.Linq;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class InitializeBlock
     {
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var e1 = Emit<Action<byte[]>>.NewDynamicMethod();
@@ -33,7 +33,7 @@ namespace SigilTests
             Assert.IsTrue(b.All(x => x == 101));
         }
 
-        [TestMethod]
+        [Test]
         public void Volatile()
         {
             var e1 = Emit<Action<byte[]>>.NewDynamicMethod();

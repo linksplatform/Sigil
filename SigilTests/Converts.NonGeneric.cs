@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class Converts
     {
-        [TestMethod]
+        [Test]
         public void SimpleNonGeneric()
         {
             {
@@ -153,7 +153,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void OverflowsNonGeneric()
         {
             {
@@ -274,7 +274,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedOverflowsNonGeneric()
         {
             {

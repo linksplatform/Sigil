@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class CastClass
     {
-        [TestMethod]
+        [Test]
         public void VeryLongMethodNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(List<String>), new [] { typeof(List<string>) });
@@ -36,7 +36,7 @@ namespace SigilTests
             Assert.AreEqual(x, d1(x));
         }
 
-        [TestMethod]
+        [Test]
         public void DisableElidingNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), new [] { typeof(string) });
@@ -52,7 +52,7 @@ namespace SigilTests
             Assert.IsTrue(instrs.Contains("castclass"));
         }
 
-        [TestMethod]
+        [Test]
         public void ElideNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), new [] { typeof(string) });
@@ -68,7 +68,7 @@ namespace SigilTests
             Assert.IsFalse(instrs.Contains("castclass"));
         }
 
-        [TestMethod]
+        [Test]
         public void ElideBranchedNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), new [] { typeof(string) });
@@ -97,7 +97,7 @@ namespace SigilTests
             Assert.IsFalse(instrs.Contains("castclass"));
         }
 
-        [TestMethod]
+        [Test]
         public void ElideManyBranchedNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), new [] { typeof(string) });
@@ -132,7 +132,7 @@ namespace SigilTests
             Assert.IsFalse(instrs.Contains("castclass"));
         }
 
-        [TestMethod]
+        [Test]
         public void ManyBranchedNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), new [] { typeof(object) });
@@ -167,7 +167,7 @@ namespace SigilTests
             Assert.IsTrue(instrs.Contains("castclass"));
         }
 
-        [TestMethod]
+        [Test]
         public void SimpleNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), new [] { typeof(object) });

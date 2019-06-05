@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class Errors
     {
         class _CallNonBaseClassConstructor1
@@ -27,7 +27,7 @@ namespace SigilTests
             public _CallNonBaseClassConstructor2(string bar) : base(bar + bar) { }
         }
 
-        [TestMethod]
+        [Test]
         public void CallNonBaseClassConstructor()
         {
             var assembly = DefineDynamicAssembly();
@@ -68,7 +68,7 @@ namespace SigilTests
 #endif
 
         }
-        [TestMethod]
+        [Test]
         public void CallNonBaseClassConstructorNonGeneric()
         {
             var assembly = DefineDynamicAssembly();
@@ -98,7 +98,7 @@ namespace SigilTests
             public _CallContructorFromNonConstructor() { }
         }
 
-        [TestMethod]
+        [Test]
         public void CallContructorFromNonConstructor()
         {
             var cons = typeof(_CallContructorFromNonConstructor).GetConstructor(Type.EmptyTypes);
@@ -116,8 +116,9 @@ namespace SigilTests
                 Assert.AreEqual("Constructors may only be called directly from within a constructor, use NewObject to allocate a new object with a specific constructor.", e.Message);
             }
         }
-#if !COREFXTODO // see https://github.com/dotnet/corefx/issues/4543 item 1
-        [TestMethod]
+// TODO: see https://github.com/dotnet/corefx/issues/4543 item 1
+#if !COREFX
+		[Test]
         public void DisassemblingClosure()
         {
             var ret = 4;
@@ -137,7 +138,7 @@ namespace SigilTests
             }
         }
 #endif
-        [TestMethod]
+        [Test]
         public void BadNonTerminalReturn()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -166,7 +167,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BadBranchManyConditional()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -201,7 +202,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BadOptimizationOptions()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -218,7 +219,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BadManyBranch()
         {
             var e1 = Emit<Func<string, string>>.NewDynamicMethod();
@@ -257,7 +258,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BadDoubleBranch()
         {
             var e1 = Emit<Func<string, string>>.NewDynamicMethod();
@@ -289,7 +290,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BadStackVals()
         {
             {
@@ -384,7 +385,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LabelDiffStack()
         {
             {
@@ -409,7 +410,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BranchDiffStack()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -433,7 +434,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Unreachable()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -452,7 +453,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void WriteLine()
         {
             {
@@ -500,7 +501,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void DoubleLabelDeclaration()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -517,7 +518,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void DoubleLocalDeclaration()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -538,7 +539,7 @@ namespace SigilTests
             e1.DeclareLocal<string>("a");
         }
 
-        [TestMethod]
+        [Test]
         public void GenericThisCall()
         {
             {
@@ -560,7 +561,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Compare()
         {
             {
@@ -596,7 +597,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void AdditionalValidation()
         {
             {
@@ -632,7 +633,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UnboxAny()
         {
             {
@@ -693,7 +694,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Unbox()
         {
             {
@@ -768,7 +769,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void EndFinallyBlock()
         {
             {
@@ -837,7 +838,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void EndCatchBlock()
         {
             {
@@ -907,7 +908,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void EndExceptionBlock()
         {
             {
@@ -1023,7 +1024,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Throw()
         {
             {
@@ -1056,7 +1057,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Switch()
         {
             {
@@ -1133,7 +1134,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void StoreObject()
         {
             {
@@ -1225,7 +1226,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void StoreLocal()
         {
             {
@@ -1290,7 +1291,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void StoreIndirect()
         {
             {
@@ -1396,7 +1397,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void StoreField()
         {
             {
@@ -1524,7 +1525,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void StoreElement()
         {
             {
@@ -1593,7 +1594,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void StoreArgument()
         {
             {
@@ -1654,7 +1655,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void SizeOf()
         {
             {
@@ -1686,7 +1687,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Return()
         {
             {
@@ -1750,7 +1751,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ReThrow()
         {
             {
@@ -1768,7 +1769,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Pop()
         {
             {
@@ -1794,7 +1795,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void NewObject()
         {
             {
@@ -1883,7 +1884,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void NewArray()
         {
             {
@@ -1930,7 +1931,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Locals()
         {
             {
@@ -1948,7 +1949,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LocalAllocate()
         {
             {
@@ -2030,7 +2031,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadVirtualFunctionPointer()
         {
             {
@@ -2095,7 +2096,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadObject()
         {
             {
@@ -2170,7 +2171,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadLocalAddress()
         {
             {
@@ -2204,7 +2205,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadLocal()
         {
             {
@@ -2238,7 +2239,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadLength()
         {
             {
@@ -2271,7 +2272,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadIndirect()
         {
             {
@@ -2347,7 +2348,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadFunctionPointer()
         {
             {
@@ -2365,7 +2366,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadFieldAddress()
         {
             {
@@ -2425,7 +2426,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadField()
         {
             {
@@ -2505,7 +2506,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadElementAddress()
         {
             {
@@ -2571,7 +2572,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadElement()
         {
             {
@@ -2637,7 +2638,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadConstant()
         {
             {
@@ -2683,7 +2684,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadArgumentAddress()
         {
             {
@@ -2715,7 +2716,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LoadArgument()
         {
             {
@@ -2745,7 +2746,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Leave()
         {
             {
@@ -2794,7 +2795,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Labels()
         {
             {
@@ -2817,7 +2818,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MarkLabel()
         {
             {
@@ -2867,7 +2868,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Jump()
         {
             {
@@ -3001,7 +3002,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void IsInstance()
         {
             {
@@ -3033,7 +3034,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void InitializeObject()
         {
             {
@@ -3077,7 +3078,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void InitializeBlock()
         {
             {
@@ -3161,7 +3162,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Duplicate()
         {
             {
@@ -3179,7 +3180,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CopyObject()
         {
             {
@@ -3258,7 +3259,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CopyBlock()
         {
             {
@@ -3337,7 +3338,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertIllegal()
         {
             {
@@ -3438,7 +3439,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertEmptyStack()
         {
             {
@@ -3481,7 +3482,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertNonPrimitives()
         {
             {
@@ -3524,7 +3525,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertNulls()
         {
             {
@@ -3567,7 +3568,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ChecksStacks()
         {
             {
@@ -3641,7 +3642,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CheckFiniteStack()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -3668,7 +3669,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CastClassNull()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -3684,7 +3685,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CastClassValueType()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -3700,7 +3701,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CastClassEmptyStack()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -3716,7 +3717,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CallIndirectNull()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -3742,7 +3743,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CallIndirectBadConvention()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -3758,7 +3759,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CallIndirectEmptyStack()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -3774,7 +3775,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CallIndirectNoPtr()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -3791,7 +3792,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CallIndirectKnownBad()
         {
             var toString = typeof(object).GetMethod("ToString");
@@ -3862,7 +3863,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CallBadParam()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -3878,7 +3879,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CallVirtualBadParam()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -3894,7 +3895,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void NullCallMethod()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -3911,7 +3912,7 @@ namespace SigilTests
         }
 
 
-        [TestMethod]
+        [Test]
         public void NullCallConstructor()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -3927,7 +3928,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CallEmptyStack()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -3943,7 +3944,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void NullCallVirtualMethod()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -3959,7 +3960,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CallVirtualEmptyStack()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -3975,7 +3976,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CallVirtualStatic()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -3991,7 +3992,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void NullBranchLabels()
         {
             var emit = typeof(Emit<Action>);
@@ -4029,7 +4030,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UnownedBranchLabels()
         {
             var emit = typeof(Emit<Action>);
@@ -4069,7 +4070,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BranchEmptyStack()
         {
             var emit = typeof(Emit<Action>);
@@ -4135,7 +4136,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CatchInCatch()
         {
             var e1 = Emit<Action>.NewDynamicMethod("e1");
@@ -4157,7 +4158,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void NullTryCatch()
         {
             var e1 = Emit<Action>.NewDynamicMethod("e1");
@@ -4173,7 +4174,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CatchNonException()
         {
             var e1 = Emit<Action>.NewDynamicMethod("e1");
@@ -4190,7 +4191,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void NonEmptyExceptBlock()
         {
             var e1 = Emit<Action>.NewDynamicMethod("e1");
@@ -4208,7 +4209,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CatchAlreadyClosedTry()
         {
             var e1 = Emit<Action>.NewDynamicMethod("e1");
@@ -4229,7 +4230,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CatchExceptionNull()
         {
             var e1 = Emit<Action>.NewDynamicMethod("e1");
@@ -4246,7 +4247,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CatchOtherTry()
         {
             var e1 = Emit<Action>.NewDynamicMethod("e1");
@@ -4264,7 +4265,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MixedOwners()
         {
             var e1 = Emit<Action>.NewDynamicMethod("e1");
@@ -4284,7 +4285,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void NonEmptyTry()
         {
             var e1 = Emit<Action>.NewDynamicMethod("e1");
@@ -4301,7 +4302,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ShiftEmptyStack()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4317,7 +4318,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ShiftBadValues()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4349,7 +4350,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Add()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4464,7 +4465,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Multiply()
         {
             var e3 = Emit<Action<int>>.NewDynamicMethod("E3");
@@ -4480,7 +4481,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void AddOverflow()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4496,7 +4497,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedAddOverflow()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4512,7 +4513,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MultiplyOverflow()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4528,7 +4529,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedMultiplyOverflow()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4544,7 +4545,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Divide()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4560,7 +4561,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedDivide()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4576,7 +4577,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Remainder()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4592,7 +4593,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedRemainder()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4608,7 +4609,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Subtract()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4624,7 +4625,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void SubtractOverflow()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4640,7 +4641,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedSubtractOverflow()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4656,7 +4657,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Negate()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4685,7 +4686,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BranchOutOfTry()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4712,7 +4713,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BranchOutOfCatch()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4739,7 +4740,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BranchOutOfFinally()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4767,7 +4768,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BranchIntoFinally()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4796,7 +4797,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BeginFinallyBlock()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4886,7 +4887,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Box()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4947,7 +4948,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BadBranch()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4975,7 +4976,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void StackCheck()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -4993,7 +4994,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MaxStackNonVerifying()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1", doVerify: false);

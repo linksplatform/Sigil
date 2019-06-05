@@ -1,5 +1,5 @@
 ﻿#if !COREFX // see https://github.com/dotnet/corefx/issues/4543 item 4
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class TypedReferences
     {
         public static int _MakeRef(TypedReference a)
@@ -18,7 +18,7 @@ namespace SigilTests
             return __refvalue( a, int?) ?? 314159;
         }
 
-        [TestMethod]
+        [Test]
         public void MakeRef()
         {
             var e1 = Emit<Func<int?, int>>.NewDynamicMethod();
@@ -39,7 +39,7 @@ namespace SigilTests
             Assert.AreEqual(314159, b);
         }
 
-        [TestMethod]
+        [Test]
         public void RefValue()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod();
@@ -61,7 +61,7 @@ namespace SigilTests
             Assert.AreEqual(123, x);
         }
 
-        [TestMethod]
+        [Test]
         public void RefType()
         {
             var e1 = Emit<Func<Type>>.NewDynamicMethod();

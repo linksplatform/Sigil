@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class IsInstance
     {
-        [TestMethod]
+        [Test]
         public void NotElided()
         {
             var e1 = Emit<Func<string, string>>.NewDynamicMethod();
@@ -26,7 +26,7 @@ namespace SigilTests
             Assert.IsTrue(instrs.Contains("isinst"));
         }
 
-        [TestMethod]
+        [Test]
         public void Elided()
         {
             var e1 = Emit<Func<string, string>>.NewDynamicMethod();
@@ -42,7 +42,7 @@ namespace SigilTests
             Assert.IsFalse(instrs.Contains("isinst"));
         }
 
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var e1 = Emit<Func<object, string>>.NewDynamicMethod();

@@ -1,5 +1,5 @@
 ﻿#if !COREFX // see https://github.com/dotnet/corefx/issues/4543 item 4
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace SigilTests
     public partial class TypedReferences
     {
 
-        [TestMethod]
+        [Test]
         public void MakeRefNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(int?) });
@@ -34,7 +34,7 @@ namespace SigilTests
             Assert.AreEqual(314159, b);
         }
 
-        [TestMethod]
+        [Test]
         public void RefValueNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes);
@@ -56,7 +56,7 @@ namespace SigilTests
             Assert.AreEqual(123, x);
         }
 
-        [TestMethod]
+        [Test]
         public void RefTypeNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(Type), Type.EmptyTypes);

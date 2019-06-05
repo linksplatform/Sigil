@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class Bitwise
     {
-        [TestMethod]
+        [Test]
         public void AndNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(byte), typeof(byte) }, "E1");
@@ -26,7 +26,7 @@ namespace SigilTests
             Assert.AreEqual(a & b, d1(a, b));
         }
 
-        [TestMethod]
+        [Test]
         public void OrNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(byte), typeof(byte) }, "E1");
@@ -42,7 +42,7 @@ namespace SigilTests
             Assert.AreEqual(a | b, d1(a, b));
         }
 
-        [TestMethod]
+        [Test]
         public void XorNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(byte), typeof(byte) }, "E1");
@@ -58,7 +58,7 @@ namespace SigilTests
             Assert.AreEqual(a ^ b, d1(a, b));
         }
 
-        [TestMethod]
+        [Test]
         public void NotNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(byte) }, "E1");

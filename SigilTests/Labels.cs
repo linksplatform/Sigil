@@ -1,13 +1,13 @@
 ﻿using System;
 using Sigil;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class Labels
     {
-        [TestMethod]
+        [Test]
         public void Lookup()
         {
             var e1 = Emit<Func<bool, bool>>.NewDynamicMethod();

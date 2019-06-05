@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sigil.NonGeneric;
 
 namespace SigilTests
@@ -15,7 +15,7 @@ namespace SigilTests
 #if WTFDNXTEST
         [ActualTestMethod]
 #elif !COREFX
-        [TestMethod]
+        [Test]
 #endif
         public void WriteLineFormatNonGeneric()
         {
@@ -68,7 +68,7 @@ namespace SigilTests
 #if WTFDNXTEST
         [ActualTestMethod]
 #elif !COREFX
-        [TestMethod]
+        [Test]
 #endif
         public void WriteLineSimpleNonGeneric()
         {
