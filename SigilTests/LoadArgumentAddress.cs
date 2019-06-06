@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace SigilTests
 {
-    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class LoadArgumentAddress
     {
         delegate int LotsOfParams(

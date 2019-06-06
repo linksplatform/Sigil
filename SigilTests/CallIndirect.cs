@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class CallIndirect
     {
         public static string Foo(int i)

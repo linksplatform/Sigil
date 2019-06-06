@@ -12,11 +12,7 @@ namespace SigilTests
     public partial class WriteLine
     {
 
-#if WTFDNXTEST
-        [ActualTestMethod]
-#elif !COREFX
         [Test]
-#endif
         public void WriteLineFormatNonGeneric()
         {
             {
@@ -65,11 +61,7 @@ namespace SigilTests
             }
         }
 
-#if WTFDNXTEST
-        [ActualTestMethod]
-#elif !COREFX
         [Test]
-#endif
         public void WriteLineSimpleNonGeneric()
         {
             var el = Emit.NewDynamicMethod(typeof(string), Type.EmptyTypes);

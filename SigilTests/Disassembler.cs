@@ -1,5 +1,7 @@
-﻿// TODO: see https://github.com/dotnet/corefx/issues/4543 item 1
-#if !COREFX
+﻿// these only work in Release because the IL generated differs in Debug, so exact
+// matches aren't gonna work
+#if !DEBUG
+
 using NUnit.Framework;
 using System;
 using System.Reflection.Emit;
@@ -9,13 +11,13 @@ using System.IO;
 
 namespace SigilTests
 {
-    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+// TODO: see https://github.com/dotnet/corefx/issues/4543 item 1
+#if !COREFX
+	[TestFixture]
     public class Disassembler
     {
-        // these only work in Release because the IL generated differs in Debug, so exact
-        // matches aren't gonna work
-#if !DEBUG
-        [Test]
+
+		[Test]
         public void Simple()
         {
             Func<int, int, int> d1 = (a, b) => a + b;
@@ -567,7 +569,8 @@ namespace SigilTests
             Assert.IsNotNull(r1);
             Assert.AreEqual("ldc.r4 0.5\r\nret\r\n", instrs);
         }    
-#endif
     }
+#endif
 }
+
 #endif

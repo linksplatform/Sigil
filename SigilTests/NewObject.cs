@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace SigilTests
 {
-    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class NewObject
     {
         class ThreeClass

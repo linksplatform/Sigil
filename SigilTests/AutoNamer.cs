@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace SigilTests
 {
-    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public class AutoNamer
     {
         [Test]

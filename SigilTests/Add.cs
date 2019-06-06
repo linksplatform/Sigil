@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public unsafe partial class Add
     {
         private delegate int* PointerToPointerDelegate(int by, int* ptr);

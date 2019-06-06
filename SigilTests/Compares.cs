@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class Compares
     {
         [Test]

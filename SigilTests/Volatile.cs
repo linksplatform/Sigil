@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace SigilTests
 {
     [TestFixture]
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class Volatile
     {
         class SimpleClass

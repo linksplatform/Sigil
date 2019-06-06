@@ -546,9 +546,9 @@ namespace Sigil
                 throw new ArgumentException("DelegateType must be a delegate, found " + delType.FullName);
             }
         }
-
-#if !COREFX // see https://github.com/dotnet/corefx/issues/4543 item 2
-        internal static bool AllowsUnverifiableCode(Module m)
+// TODO: see https://github.com/dotnet/corefx/issues/4543 item 2
+#if !COREFX
+		internal static bool AllowsUnverifiableCode(Module m)
         {
             return Attribute.IsDefined(m, typeof(System.Security.UnverifiableCodeAttribute));
         }
@@ -650,11 +650,11 @@ namespace Sigil
             var parameterTypes = ((LinqArray<ParameterInfo>)invoke.GetParameters()).Select(s => s.ParameterType).ToArray();
 
             var dynMethod = new DynamicMethod(name, returnType, parameterTypes, owner, skipVisibility: true);
-
-#if COREFX // see https://github.com/dotnet/corefx/issues/4543 item 2
+// TODO: see https://github.com/dotnet/corefx/issues/4543 item 2
+#if COREFX
             const bool allowUnverifiable = false;
 #else
-            bool allowUnverifiable = AllowsUnverifiableCode(TypeHelpers.GetModule(owner));
+			bool allowUnverifiable = AllowsUnverifiableCode(TypeHelpers.GetModule(owner));
 #endif
 			var ret = new Emit<DelegateType>( dynMethod.CallingConvention, returnType, parameterTypes, allowUnverifiable, doVerify, strictBranchVerification )
 			{

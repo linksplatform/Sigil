@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace SigilTests
 {
-    [TestFixture, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class WriteLine
     {
         internal static MethodInfo GetStreamWriterFlush()
@@ -26,11 +26,8 @@ namespace SigilTests
 #endif          
             return typeof(StreamWriter).GetMethod(nameof(StreamWriter.Flush));
         }
-#if WTFDNXTEST
-        [ActualTestMethod]
-#elif !COREFX
+
         [Test]
-#endif
         public void WriteLineFormat()
         {
             // Assert.Fail("didn't start method");
@@ -80,11 +77,7 @@ namespace SigilTests
             // Assert.Fail("exited method cleanly");
         }
 
-#if WTFDNXTEST
-        [ActualTestMethod]
-#elif !COREFX
         [Test]
-#endif
         public void WriteLineSimple()
         {
             var el = Emit<Func<string>>.NewDynamicMethod();
