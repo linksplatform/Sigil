@@ -1,16 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>A fail-fast validation helper for .NET CIL generation.</Description>
-    <Copyright>2013-2016 Kevin Montrose</Copyright>
-    <VersionPrefix>4.8.0</VersionPrefix>
-    <Authors>kmontrose, arlm</Authors>
+    <LangVersion>7.3</LangVersion>
     <TargetFrameworks>net45;net46;net47;net48;netstandard1.5;netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Sigil</AssemblyName>
     <AssemblyOriginatorKeyFile>../Sigil/Properties/Sigil.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <PackageOutputPath>../Nuget</PackageOutputPath>
+    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.5' ">1.6.0</NetStandardImplicitPackageVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>4.8.1</Version>
+    <PackageVersion>4.8.21</PackageVersion>
+    <InformationalVersion>4.8.1</InformationalVersion>
+    <AssemblyVersion>4.8.1</AssemblyVersion>
+    <FileVersion>4.8.1</FileVersion>
+    <VersionPrefix>4.8.1</VersionPrefix>
+
+    <Description>A fail-fast validation helper for .NET CIL generation.</Description>
+    <Copyright>2013-2016 Kevin Montrose</Copyright>
+    <Authors>kmontrose, arlm</Authors>
     <PackageId>Sigil</PackageId>
     <PackageTags>cil msil il bytecode</PackageTags>
     <PackageReleaseNotes>.NET Core RC2 update and bug fixes</PackageReleaseNotes>
@@ -18,14 +30,14 @@
     <PackageLicenseUrl>http://opensource.org/licenses/MS-PL</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/arlm/Sigil</RepositoryUrl>
-    <PackageOutputPath>../Nuget</PackageOutputPath>
-    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.5' ">1.6.0</NetStandardImplicitPackageVersion>
+
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.5' ">
