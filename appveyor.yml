@@ -4,6 +4,7 @@ configuration: Release
 install:
 - cmd: |
     dotnet restore
+
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
@@ -23,14 +24,38 @@ build:
   verbosity: minimal
 after_build:
 - cmd: >-
-    dotnet publish --self-contained false
+    dotnet publish --self-contained false --framework net452
+
+    dotnet publish --self-contained false --framework net462
+
+    dotnet publish --self-contained false --framework net472
+
+    dotnet publish --self-contained false --framework net48
+
+    dotnet publish --self-contained false --framework netstandard1.5
+
+    dotnet publish --self-contained false --framework netstandard2.0
+
     dotnet pack
+
 - sh: >-
-    dotnet publish --self-contained false
+    dotnet publish --self-contained false --framework net452
+
+    dotnet publish --self-contained false --framework net462
+
+    dotnet publish --self-contained false --framework net472
+
+    dotnet publish --self-contained false --framework net48
+
+    dotnet publish --self-contained false --framework netstandard1.5
+
+    dotnet publish --self-contained false --framework netstandard2.0
+
     dotnet pack
 
 test_script:
 - cmd: dotnet test --no-build --no-restore --logger:Appveyor
+
 artifacts:
 - path: '**/*.nupkg'
   name: Nuget
