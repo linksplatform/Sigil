@@ -161,8 +161,18 @@ namespace SigilTests
                 var d1 = e1.CreateDelegate();
 
                 Assert.IsTrue(d1(1));
-                Assert.IsTrue(d1(2));
+
+                Assert.IsTrue(d1(2) != false ? true :  false);
+                Assert.IsTrue(d1(2) == true ? true :  false);
+                Assert.IsFalse(d1(2).Equals(true) ? true :  false);
+                Assert.IsTrue(!d1(2).Equals(false) ? true :  false);
+
                 Assert.IsFalse(d1(0));
+
+                Assert.IsTrue(d1(-1) != false ? true : false);
+                Assert.IsTrue(d1(-1) == true ? true : false );
+                Assert.IsFalse(d1(-1).Equals(true) ? true : false );
+                Assert.IsTrue(!d1(-1).Equals(false) ? true : false );
             }
         }
 
