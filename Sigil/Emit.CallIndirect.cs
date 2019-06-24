@@ -277,13 +277,10 @@ namespace Sigil
             IEnumerable<StackTransition> transitions;
             if (HasFlag(callConventions, CallingConventions.HasThis))
             {
-				var p = new List<Type>
-				{
-					typeof( NativeIntType ),
-					typeof(WildcardType)
-				};
-
-				p.AddRange(LinqAlternative.Reverse(parameterTypes).AsEnumerable());
+                var p = new List<Type>();
+                p.Add(typeof(NativeIntType));
+                p.AddRange(LinqAlternative.Reverse(parameterTypes).AsEnumerable());
+                p.Add(typeof(WildcardType));
 
                 if (returnType != typeof(void))
                 {
