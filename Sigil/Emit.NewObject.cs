@@ -180,7 +180,7 @@ namespace Sigil
             }
 
             var allCons = type.GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance
-#if !COREFX
+#if !NETSTANDARD
                 | BindingFlags.CreateInstance
 #endif
                 );

@@ -556,7 +556,7 @@ namespace Sigil.Impl
 
         private static IEnumerable<T> _Distinct<T>(IEnumerable<T> e, IEqualityComparer<T> c)
         {
-#if COREFX
+#if NETSTANDARD
             return System.Linq.Enumerable.Distinct(e, c);
 #else
             var h = new Hashtable();

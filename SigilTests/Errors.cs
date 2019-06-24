@@ -55,7 +55,7 @@ namespace SigilTests
 
         internal static System.Reflection.Emit.AssemblyBuilder DefineDynamicAssembly([CallerMemberName]string name=null)
         {
-#if COREFX
+#if NETCOREAPP
             return System.Reflection.Emit.AssemblyBuilder.DefineDynamicAssembly(
                     new AssemblyName(name),
                     System.Reflection.Emit.AssemblyBuilderAccess.RunAndCollect
@@ -116,8 +116,8 @@ namespace SigilTests
                 Assert.AreEqual("Constructors may only be called directly from within a constructor, use NewObject to allocate a new object with a specific constructor.", e.Message);
             }
         }
-// TODO: see https://github.com/dotnet/corefx/issues/4543 item 1
-#if !COREFX
+        // TODO: see https://github.com/dotnet/corefx/issues/4543 item 1
+#if !NETCOREAPP
 		[Test]
         public void DisassemblingClosure()
         {
@@ -4141,7 +4141,7 @@ namespace SigilTests
         {
             var e1 = Emit<Action>.NewDynamicMethod("e1");
             var t = e1.BeginExceptionBlock();
-#if COREFX
+#if NETCOREAPP
             var c1 = e1.BeginCatchBlock<ArgumentException>(t);
 #else
             var c1 = e1.BeginCatchBlock<StackOverflowException>(t);

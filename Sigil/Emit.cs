@@ -18,7 +18,7 @@ namespace Sigil
 
         static Emit()
         {
-#if COREFX
+#if NETSTANDARD
             var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Sigil.Emit.DynamicAssembly"), AssemblyBuilderAccess.Run);
 #else
             var asm = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName("Sigil.Emit.DynamicAssembly"), AssemblyBuilderAccess.Run);
@@ -530,7 +530,7 @@ namespace Sigil
 
             var baseTypes = new LinqHashSet<Type>();
             baseTypes.Add(delType);
-#if COREFX
+#if NETSTANDARD
             var bType = delType.GetTypeInfo().BaseType;
 #else
             var bType = delType.BaseType;
@@ -546,8 +546,8 @@ namespace Sigil
                 throw new ArgumentException("DelegateType must be a delegate, found " + delType.FullName);
             }
         }
-// TODO: see https://github.com/dotnet/corefx/issues/4543 item 2
-#if !COREFX
+        // TODO: see https://github.com/dotnet/corefx/issues/4543 item 2
+#if !NETSTANDARD
 		internal static bool AllowsUnverifiableCode(Module m)
         {
             return Attribute.IsDefined(m, typeof(System.Security.UnverifiableCodeAttribute));
@@ -650,8 +650,8 @@ namespace Sigil
             var parameterTypes = ((LinqArray<ParameterInfo>)invoke.GetParameters()).Select(s => s.ParameterType).ToArray();
 
             var dynMethod = new DynamicMethod(name, returnType, parameterTypes, owner, skipVisibility: true);
-// TODO: see https://github.com/dotnet/corefx/issues/4543 item 2
-#if COREFX
+            // TODO: see https://github.com/dotnet/corefx/issues/4543 item 2
+#if NETSTANDARD
             const bool allowUnverifiable = false;
 #else
 			bool allowUnverifiable = AllowsUnverifiableCode(TypeHelpers.GetModule(owner));

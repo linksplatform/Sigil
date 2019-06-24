@@ -1,5 +1,5 @@
 ﻿// TODO: see https://github.com/dotnet/corefx/issues/4543 item 4
-#if !COREFX 
+#if !NETCOREAPP
 using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;

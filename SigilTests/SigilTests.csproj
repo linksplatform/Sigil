@@ -4,7 +4,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SigilTests</RootNamespace>
     <AssemblyName>SigilTests</AssemblyName>
-    <TargetFrameworks>net452;net462;net472;net48;netstandard1.5;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net452;net462;net472;net48;netcoreapp1.1;netcoreapp2.2</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <TestProjectType>UnitTest</TestProjectType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -18,14 +18,6 @@
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
   </ItemGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.5' ">
-    <DefineConstants>$(DefineConstants);COREFX</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <DefineConstants>$(DefineConstants);COREFX</DefineConstants>
-  </PropertyGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\Sigil\Sigil.csproj" />

@@ -32,10 +32,14 @@ after_build:
 
     dotnet publish --self-contained false --framework net48
 
-    dotnet publish --self-contained false --framework netstandard1.5
+    dotnet publish Sigil --self-contained false --framework netstandard1.5
 
-    dotnet publish --self-contained false --framework netstandard2.0
+    dotnet publish Sigil --self-contained false --framework netstandard2.0
 
+    dotnet publish SigilTests --self-contained false --framework netcoreapp1.1
+
+    dotnet publish SigilTests --self-contained false --framework netcoreapp2.2
+    
     dotnet pack
 
 - sh: >-
@@ -47,9 +51,13 @@ after_build:
 
     dotnet publish --self-contained false --framework net48
 
-    dotnet publish --self-contained false --framework netstandard1.5
+    dotnet publish Sigil --self-contained false --framework netstandard1.5
 
-    dotnet publish --self-contained false --framework netstandard2.0
+    dotnet publish Sigil --self-contained false --framework netstandard2.0
+
+    dotnet publish SigilTests --self-contained false --framework netcoreapp1.1
+
+    dotnet publish SigilTests --self-contained false --framework netcoreapp2.2
 
     dotnet pack
 

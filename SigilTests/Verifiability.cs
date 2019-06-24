@@ -196,7 +196,7 @@ namespace SigilTests
                 var dyn = new DynamicMethod("E1", typeof(void), Type.EmptyTypes);
                 var il = dyn.GetILGenerator();
                 il.Emit(OpCodes.Ldftn, writeLine);
-#if COREFX
+#if NETCOREAPP
                 il.EmitCalli(OpCodes.Calli, System.Reflection.CallingConventions.Standard, typeof(void), Type.EmptyTypes, null);
 #else
                 il.EmitCalli(OpCodes.Calli, System.Runtime.InteropServices.CallingConvention.StdCall, typeof(void), Type.EmptyTypes);

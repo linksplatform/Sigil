@@ -12,7 +12,7 @@ using System.IO;
 namespace SigilTests
 {
 // TODO: see https://github.com/dotnet/corefx/issues/4543 item 1
-#if !COREFX
+#if !NETCOREAPP
 	[TestFixture]
     public class Disassembler
     {

@@ -411,7 +411,7 @@ namespace Sigil.NonGeneric
             }
 
             ValidateReturnAndParameterTypes(type
-#if COREFX
+#if NETSTANDARD
                 .AsType()
 #endif
                 , parameterTypes);

@@ -427,7 +427,7 @@ namespace Sigil.Impl
 
     internal class LinqHashSet<T> : LinqRoot<T>
     {
-#if !COREFX
+#if !NETSTANDARD
         private class Comparer : System.Collections.IEqualityComparer
         {
             private IEqualityComparer<T> Inner;
@@ -451,7 +451,7 @@ namespace Sigil.Impl
 
 
 
-#if COREFX
+#if NETSTANDARD
         private System.Collections.Generic.HashSet<T> Inner;
         private LinqHashSet(System.Collections.Generic.HashSet<T> h)
         {
@@ -478,7 +478,7 @@ namespace Sigil.Impl
 #endif
         public new int Count { get { return Inner.Count; } }
 
-#if COREFX
+#if NETSTANDARD
         protected override IEnumerable<T> InnerEnumerable()
         {
             foreach (var x in Inner)

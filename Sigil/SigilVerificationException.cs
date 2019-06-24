@@ -1,6 +1,6 @@
 ﻿using Sigil.Impl;
 using System;
-#if !COREFX
+#if !NETSTANDARD
 using System.Runtime.Serialization;
 #endif
 using System.Text;
@@ -16,15 +16,15 @@ namespace Sigil
     /// 
     /// SigilVerificationException will typically include the state of the stack (or stacks) at the instruction in error.
     /// </summary>
-#if !COREFX
+#if !NETSTANDARD
     [Serializable]
 #endif
     public class SigilVerificationException : Exception
-#if !COREFX
+#if !NETSTANDARD
         , ISerializable
 #endif
     {
-		private readonly string[] Instructions;
+        private readonly string[] Instructions;
         private readonly VerificationResult VerificationFailure;
         private readonly ReturnTracerResult ReturnFailure;
 
@@ -215,7 +215,7 @@ namespace Sigil
             }
         }
 
-#if !COREFX
+#if !NETSTANDARD
         /// <summary>
         /// Implementation for ISerializable.
         /// </summary>

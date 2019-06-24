@@ -37,7 +37,11 @@ namespace SigilTests
         {
             Type[] t = new Type[args.Length];
             for (int i = 0; i < args.Length; i++)
+#if NETCOREAPP
+                t[i] = args[i].CreateTypeInfo().AsType();
+#else
                 t[i] = args[i].AsType();
+#endif
             return type.MakeGenericType(t);
         }
         public static ConstructorInfo GetConstructor(this Type type, params Type[] parameterTypes)

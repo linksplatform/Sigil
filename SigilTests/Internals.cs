@@ -20,7 +20,7 @@ namespace SigilTests
         }
         internal static Delegate CreateDelegate(Type delegateType, System.Reflection.MethodInfo method)
         {
-#if COREFX
+#if NETCOREAPP
             return method.CreateDelegate(delegateType);
 #else
             return Delegate.CreateDelegate(delegateType, method);
@@ -75,7 +75,7 @@ namespace SigilTests
 
         static Type[] GetAssemblyTypes(Type type)
         {
-#if COREFX
+#if NETCOREAPP
             return type.GetTypeInfo().Assembly.GetTypes();
 #else
             return type.Assembly.GetTypes();
