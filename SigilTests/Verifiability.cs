@@ -150,8 +150,11 @@ namespace SigilTests
                 d1(new int[] { 123 });
                 Assert.Fail();
             }
-            catch (VerificationException) { }
-
+#if NETCOREAPP
+            catch(InvalidProgramException) { }
+#else
+            catch(VerificationException) { }
+#endif
             {
                 var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);
                 var mod = asm.DefineDynamicModule("Bar");
