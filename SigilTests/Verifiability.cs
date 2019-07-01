@@ -253,7 +253,7 @@ namespace SigilTests
                 var il = dyn.GetILGenerator();
                 il.Emit(OpCodes.Ldc_I4_8);
                 il.Emit(OpCodes.Localloc);
-                il.Emit(OpCodes.Pop);
+                il.Emit(OpCodes.Stloc_0);
                 il.Emit(OpCodes.Ret);
 
                 var d1 = (Action)dyn.CreateDelegate(typeof(Action));
@@ -261,7 +261,11 @@ namespace SigilTests
 
                 Assert.Fail();
             }
-            catch (VerificationException) { }
+#if NETCOREAPP
+            catch(InvalidProgramException) { }
+#else
+            catch(VerificationException) { }
+#endif
 
             {
                 var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);
