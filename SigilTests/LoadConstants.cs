@@ -165,7 +165,7 @@ namespace SigilTests
         public void Method()
         {
             var e1 = Emit<Func<RuntimeMethodHandle>>.NewDynamicMethod();
-            e1.LoadConstant(typeof(RuntimeMethodHandle).GetMethod("GetFunctionPointer"));
+            e1.LoadConstant(typeof(RuntimeMethodHandle).GetMethod("GetHashCode"));
             e1.Return();
 
             var d1 = e1.CreateDelegate();
