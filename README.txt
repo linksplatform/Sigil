@@ -1,3 +1,6 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/xbpqslwccr526o5e/branch/master?svg=true)](https://ci.appveyor.com/project/arlm/sigil-vnext/branch/master)
+[![NuGet Version and Downloads count](https://buildstats.info/nuget/Sigil-vNext)](https://www.nuget.org/packages/Sigil-vNext) 
+
 # Sigil
 
 A fail-fast, validating helper for [DynamicMethod](http://msdn.microsoft.com/en-us/library/system.reflection.emit.dynamicmethod.aspx) and [ILGenerator](http://msdn.microsoft.com/en-us/library/system.reflection.emit.ilgenerator.aspx).

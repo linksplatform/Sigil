@@ -12,23 +12,25 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>4.8.1</Version>
-    <PackageVersion>4.8.21</PackageVersion>
-    <InformationalVersion>4.8.1</InformationalVersion>
-    <AssemblyVersion>4.8.1</AssemblyVersion>
-    <FileVersion>4.8.1</FileVersion>
-    <VersionPrefix>4.8.1</VersionPrefix>
+    <Version>4.8.22</Version>
+    <PackageVersion>4.8.22</PackageVersion>
+    <InformationalVersion>4.8.22</InformationalVersion>
+    <AssemblyVersion>4.8.22</AssemblyVersion>
+    <FileVersion>4.8.22</FileVersion>
+    <VersionPrefix>4.8.22</VersionPrefix>
 
+    <Title>Sigil vNext</Title>
     <Description>A fail-fast validation helper for .NET CIL generation.</Description>
-    <Copyright>2013-2016 Kevin Montrose</Copyright>
+    <Summary>A fail-fast validation helper for .NET CIL generation.</Summary>
+    <Copyright>2013-2016 Kevin Montrose; 2019 Alexandre Rocha Lima e Marcondes</Copyright>
     <Authors>kmontrose, arlm</Authors>
-    <PackageId>Sigil</PackageId>
+    <PackageId>Sigil-vNext</PackageId>
     <PackageTags>cil msil il bytecode</PackageTags>
-    <PackageReleaseNotes>.NET Core RC2 update and bug fixes</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/arlm/Sigil</PackageProjectUrl>
-    <PackageLicenseUrl>http://opensource.org/licenses/MS-PL</PackageLicenseUrl>
+    <PackageReleaseNotes>Updates to support .NET 4.5.2, 4.6.2, 4.7.2, 4.8 and .NET Standard 1.5 and 2.0</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/arlm/Sigil-vNext</PackageProjectUrl>
+    <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/arlm/Sigil</RepositoryUrl>
+    <RepositoryUrl>https://github.com/arlm/Sigil-vNext</RepositoryUrl>
 
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
@@ -37,6 +39,11 @@
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../LICENSE.txt" Pack="true" PackagePath=""/>
+    <None Include="../README.txt" Pack="true" PackagePath=""/>
+  </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.5' ">
     <PackageReference Include="System.Reflection" Version="4.3.0" />
@@ -54,6 +61,10 @@
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.5.1" />
     <PackageReference Include="System.Reflection.Metadata" Version="1.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Packaging.Targets" Version="0.1.45" />
   </ItemGroup>
 
 </Project>

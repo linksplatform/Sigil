@@ -4,7 +4,6 @@ configuration: Release
 install:
 - cmd: |
     dotnet restore
-
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
@@ -24,41 +23,129 @@ build:
   verbosity: minimal
 after_build:
 - cmd: >-
+    echo "### Publishing .NET 4.5.2 ###"
+
     dotnet publish --self-contained false --framework net452
+
+    cd  %APPVEYOR_BUILD_FOLDER%\Sigil\bin\Release\net452\publish\
+
+    7z a Sigil-vNext-net452-v%APPVEYOR_BUILD_VERSION%.zip .\*
+
+    cd  %APPVEYOR_BUILD_FOLDER%
+
+    echo "### Publishing .NET 4.6.2 ###"
 
     dotnet publish --self-contained false --framework net462
 
+    cd  %APPVEYOR_BUILD_FOLDER%\Sigil\bin\Release\net462\publish\
+
+    7z a Sigil-vNext-net462-v%APPVEYOR_BUILD_VERSION%.zip .\*
+
+    cd  %APPVEYOR_BUILD_FOLDER%
+
+    echo "### Publishing .NET 4.7.2 ###"
+
     dotnet publish --self-contained false --framework net472
 
+    cd  %APPVEYOR_BUILD_FOLDER%\Sigil\bin\Release\net472\publish\
+
+    7z a Sigil-vNext-net472-v%APPVEYOR_BUILD_VERSION%.zip .\*
+
+    cd  %APPVEYOR_BUILD_FOLDER%
+        
+    echo "### Publishing .NET 4.8 ###"
+
     dotnet publish --self-contained false --framework net48
+    
+    cd  %APPVEYOR_BUILD_FOLDER%\Sigil\bin\Release\net48\publish\
+
+    7z a Sigil-vNext-net48-v%APPVEYOR_BUILD_VERSION%.zip .\*
+
+    cd  %APPVEYOR_BUILD_FOLDER%
+    
+    echo "### Publishing .NET Standard 1.5 ###"
 
     dotnet publish Sigil --self-contained false --framework netstandard1.5
+    
+    cd  %APPVEYOR_BUILD_FOLDER%\Sigil\bin\Release\netstandard1.5\publish\
+
+    7z a Sigil-vNext-netstandard1.5-v%APPVEYOR_BUILD_VERSION%.zip .\*
+
+    cd  %APPVEYOR_BUILD_FOLDER%
+
+    echo "### Publishing .NET Standard 2.0 ###"
 
     dotnet publish Sigil --self-contained false --framework netstandard2.0
-
-    dotnet publish SigilTests --self-contained false --framework netcoreapp1.1
-
-    dotnet publish SigilTests --self-contained false --framework netcoreapp2.2
     
+    cd  %APPVEYOR_BUILD_FOLDER%\Sigil\bin\Release\netstandard2.0\publish\
+
+    7z a Sigil-vNext-netstandard2.0-v%APPVEYOR_BUILD_VERSION%.zip .\*
+
+    cd  %APPVEYOR_BUILD_FOLDER%
+   
     dotnet pack
 
 - sh: >-
+    echo "### Publishing .NET 4.5.2 ###"
+
     dotnet publish --self-contained false --framework net452
+
+    cd  %APPVEYOR_BUILD_FOLDER%\Sigil\bin\Release\net452\publish\
+
+    7z a Sigil-vNext-net452-v%APPVEYOR_BUILD_VERSION%.zip .\*
+
+    cd  %APPVEYOR_BUILD_FOLDER%
+
+    echo "### Publishing .NET 4.6.2 ###"
 
     dotnet publish --self-contained false --framework net462
 
+    cd  %APPVEYOR_BUILD_FOLDER%\Sigil\bin\Release\net462\publish\
+
+    7z a Sigil-vNext-net462-v%APPVEYOR_BUILD_VERSION%.zip .\*
+
+    cd  %APPVEYOR_BUILD_FOLDER%
+
+    echo "### Publishing .NET 4.7.2 ###"
+
     dotnet publish --self-contained false --framework net472
 
+    cd  %APPVEYOR_BUILD_FOLDER%\Sigil\bin\Release\net472\publish\
+
+    7z a Sigil-vNext-net472-v%APPVEYOR_BUILD_VERSION%.zip .\*
+
+    cd  %APPVEYOR_BUILD_FOLDER%
+        
+    echo "### Publishing .NET 4.8 ###"
+
     dotnet publish --self-contained false --framework net48
+    
+    cd  %APPVEYOR_BUILD_FOLDER%\Sigil\bin\Release\net48\publish\
+
+    7z a Sigil-vNext-net48-v%APPVEYOR_BUILD_VERSION%.zip .\*
+
+    cd  %APPVEYOR_BUILD_FOLDER%
+    
+    echo "### Publishing .NET Standard 1.5 ###"
 
     dotnet publish Sigil --self-contained false --framework netstandard1.5
+    
+    cd  %APPVEYOR_BUILD_FOLDER%\Sigil\bin\Release\netstandard1.5\publish\
+
+    7z a Sigil-vNext-netstandard1.5-v%APPVEYOR_BUILD_VERSION%.zip .\*
+
+    cd  %APPVEYOR_BUILD_FOLDER%
+
+    echo "### Publishing .NET Standard 2.0 ###"
 
     dotnet publish Sigil --self-contained false --framework netstandard2.0
+    
+    cd  %APPVEYOR_BUILD_FOLDER%\Sigil\bin\Release\netstandard2.0\publish\
 
-    dotnet publish SigilTests --self-contained false --framework netcoreapp1.1
+    7z a Sigil-vNext-netstandard2.0-v%APPVEYOR_BUILD_VERSION%.zip .\*
 
-    dotnet publish SigilTests --self-contained false --framework netcoreapp2.2
-
+    cd  %APPVEYOR_BUILD_FOLDER%
+   
     dotnet pack
 
 test_script:
@@ -67,5 +154,26 @@ test_script:
 artifacts:
 - path: '**/*.nupkg'
   name: Nuget
-- path: '**/publish/*'
+- path: '**/Sigil-*.zip'
   name: Binaries
+
+deploy:
+- provider: Environment
+  name: nuget.org
+  on:
+    branch: release/*
+
+- provider: Environment
+  name: github
+  on:
+    branch: release/*
+
+- provider: Environment
+  name: nuget.org
+  on:
+    APPVEYOR_REPO_TAG: true
+
+- provider: Environment
+  name: github
+  on:
+    APPVEYOR_REPO_TAG: true
