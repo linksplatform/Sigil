@@ -12,12 +12,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>4.8.22</Version>
-    <PackageVersion>4.8.22</PackageVersion>
-    <InformationalVersion>4.8.22</InformationalVersion>
-    <AssemblyVersion>4.8.22</AssemblyVersion>
-    <FileVersion>4.8.22</FileVersion>
-    <VersionPrefix>4.8.22</VersionPrefix>
+    <Version>4.8.40</Version>
+    <PackageVersion>4.8.40</PackageVersion>
+    <InformationalVersion>4.8.40</InformationalVersion>
+    <AssemblyVersion>4.8.40</AssemblyVersion>
+    <FileVersion>4.8.40</FileVersion>
+    <VersionPrefix>4.8.40</VersionPrefix>
 
     <Title>Sigil vNext</Title>
     <Description>A fail-fast validation helper for .NET CIL generation.</Description>
