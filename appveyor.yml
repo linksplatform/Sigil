@@ -21,6 +21,17 @@ dotnet_csproj:
 build:
   project: Sigil.sln
   verbosity: minimal
+before_build:
+- cmd: >-
+    echo "### Source Code package ###"
+
+    7z a Sigil-vNext-source-v%APPVEYOR_BUILD_VERSION%.zip .\*
+
+- sh: >-
+    echo "### Source Code package ###"
+
+    7z a Sigil-vNext-source-v%APPVEYOR_BUILD_VERSION%.zip .\*
+
 after_build:
 - cmd: >-
     echo "### Publishing .NET 4.5.2 ###"
