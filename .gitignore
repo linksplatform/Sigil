@@ -9,3 +9,5 @@ obj/
 *TestResults*
 project.lock.json
 .vs/
+Nuget/
+SigilTests/Properties/launchSettings.json

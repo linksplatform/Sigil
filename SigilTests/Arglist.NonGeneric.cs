@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace SigilTests
 {
     public partial class Arglist
     {
-        [TestMethod]
+        [Test]
         public void SimpleNonGeneric()
         {
             MethodInfo mtd;
@@ -35,6 +35,9 @@ namespace SigilTests
                 mtd = type.GetMethod("VarArgsMethod");
             }
 
+#if NETCOREAPP
+            try
+#endif
             {
                 var e2 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes);
                 e2.LoadConstant("hello");
@@ -46,8 +49,15 @@ namespace SigilTests
                 var d2 = (Func<int>)e2.CreateDelegate(typeof(Func<int>), out instr2);
 
                 var i = d2();
+#if NETCOREAPP
+                Assert.Fail();
+#else
                 Assert.AreNotEqual(0, i);
+#endif
             }
+#if NETCOREAPP
+            catch(InvalidProgramException) { }
+#endif     
         }
     }
 }

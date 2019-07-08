@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class NewObject
     {
         class ThreeClass
@@ -24,7 +24,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MultiParam()
         {
             var e1 = Emit<Func<string, int, List<double>, string>>.NewDynamicMethod();
@@ -57,7 +57,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void PrivateConstructor()
         {
             var e1 = Emit<Func<int, string>>.NewDynamicMethod("E1");
@@ -81,7 +81,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ReferenceType()
         {
             var e1 = Emit<Func<RT>>.NewDynamicMethod("E1");
@@ -105,7 +105,7 @@ namespace SigilTests
         }
 
 
-        [TestMethod]
+        [Test]
         public void ValueType()
         {
             var e1 = Emit<Func<VT>>.NewDynamicMethod("E1");
@@ -118,7 +118,7 @@ namespace SigilTests
             Assert.AreEqual(3.1415926, d1().B);
         }
 
-        [TestMethod]
+        [Test]
         public void ConstructorBuilders()
         {
             var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("ConstructorBuilders"), AssemblyBuilderAccess.Run);

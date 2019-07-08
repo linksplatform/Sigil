@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass]
+    [TestFixture]
     public class NoVerification
     {
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var emit = Emit<Func<int>>.NewDynamicMethod(doVerify: false);
@@ -29,7 +29,7 @@ namespace SigilTests
             Assert.AreEqual(3, del());
         }
 
-        [TestMethod]
+        [Test]
         public void Scan()
         {
             var terms = new[] { "hello", "world", "fizz", "buzz" };
@@ -72,7 +72,7 @@ namespace SigilTests
             Assert.AreEqual(3, d1("buzz"));
         }
 
-        [TestMethod]
+        [Test]
         public void ConditionalBranchOver()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod(doVerify: false);
@@ -102,7 +102,7 @@ namespace SigilTests
             Assert.AreEqual(123 + 456, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void ManyConditional()
         {
             var e1 = Emit<Action>.NewDynamicMethod(doVerify: false);
@@ -130,7 +130,7 @@ namespace SigilTests
             d1();
         }
 
-        [TestMethod]
+        [Test]
         public void InMethod()
         {
             var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);
@@ -168,7 +168,7 @@ namespace SigilTests
             Assert.AreEqual("greater than", d1(50));
         }
 
-        [TestMethod]
+        [Test]
         public void BranchingOverExceptions()
         {
             {
@@ -248,7 +248,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LeaveDataOnStackBetweenBranches()
         {
             var il = Emit<Func<int>>.NewDynamicMethod("LeaveDataOnStackBetweenBranches", doVerify: false);
@@ -272,7 +272,7 @@ namespace SigilTests
             Assert.AreEqual(4, i);
         }
 
-        [TestMethod]
+        [Test]
         public void CallIndirectSimple()
         {
             var foo = typeof(CallIndirect).GetMethod("Foo");
@@ -296,7 +296,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Virtual()
         {
             var toString = typeof(object).GetMethod("ToString");

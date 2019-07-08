@@ -1,15 +1,15 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sigil;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public class Init
     {
         delegate string FooDelegate(object p);
 
-        [TestMethod]
+        [Test]
         public void EmitDelegateParsing()
         {
             var e1 = Emit<Action<int, string>>.NewDynamicMethod("E1");
@@ -31,7 +31,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void EmitSingleReturn()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");

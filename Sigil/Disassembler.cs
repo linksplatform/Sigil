@@ -1,4 +1,5 @@
-﻿#if !COREFXTODO // see https://github.com/dotnet/corefx/issues/4543 item 1
+﻿//  TODO: see https://github.com/dotnet/corefx/issues/4543 item 1
+#if !NETSTANDARD
 using Sigil.Impl;
 using System;
 using System.Collections.Generic;

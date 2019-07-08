@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class LoadConstants
     {
-        [TestMethod]
+        [Test]
         public void Null()
         {
             var e1 = Emit<Func<string, string>>.NewDynamicMethod("E1");
@@ -26,7 +26,7 @@ namespace SigilTests
             Assert.AreEqual(null, d1("Foo"));
         }
 
-        [TestMethod]
+        [Test]
         public void AllBools()
         {
             {
@@ -48,7 +48,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void AllInts()
         {
             for (var i = -1; i <= 256; i++)
@@ -63,7 +63,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void AllUInts()
         {
             for (uint i = 0; i <= 256; i++)
@@ -88,7 +88,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Long()
         {
             var e1 = Emit<Func<long>>.NewDynamicMethod();
@@ -100,7 +100,7 @@ namespace SigilTests
             Assert.AreEqual(long.MaxValue, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void ULong()
         {
             var e1 = Emit<Func<ulong>>.NewDynamicMethod();
@@ -112,7 +112,7 @@ namespace SigilTests
             Assert.AreEqual(ulong.MaxValue, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void Float()
         {
             var e1 = Emit<Func<float>>.NewDynamicMethod();
@@ -124,7 +124,7 @@ namespace SigilTests
             Assert.AreEqual(12.34f, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void Double()
         {
             var e1 = Emit<Func<double>>.NewDynamicMethod();
@@ -136,7 +136,7 @@ namespace SigilTests
             Assert.AreEqual(12.34, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void String()
         {
             var e1 = Emit<Func<string>>.NewDynamicMethod();
@@ -148,7 +148,7 @@ namespace SigilTests
             Assert.AreEqual("hello world", d1());
         }
 
-        [TestMethod]
+        [Test]
         public void Type()
         {
             var e1 = Emit<Func<Type>>.NewDynamicMethod();
@@ -161,11 +161,11 @@ namespace SigilTests
             Assert.AreEqual(typeof(string), d1());
         }
 
-        [TestMethod]
+        [Test]
         public void Method()
         {
             var e1 = Emit<Func<RuntimeMethodHandle>>.NewDynamicMethod();
-            e1.LoadConstant(typeof(RuntimeMethodHandle).GetMethod("GetFunctionPointer"));
+            e1.LoadConstant(typeof(RuntimeMethodHandle).GetMethod("GetHashCode"));
             e1.Return();
 
             var d1 = e1.CreateDelegate();
@@ -180,7 +180,7 @@ namespace SigilTests
             public FieldClass() { Foo = 123; }
         }
 
-        [TestMethod]
+        [Test]
         public void Field()
         {
             var e1 = Emit<Func<RuntimeFieldHandle>>.NewDynamicMethod();

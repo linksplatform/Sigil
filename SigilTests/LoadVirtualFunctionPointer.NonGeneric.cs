@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace SigilTests
 {
     public partial class LoadVirtualFunctionPointer
     {
-        [TestMethod]
+        [Test]
         public void CanValidateUnbakedNonGeneric()
         {
             var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("MethodBuilders"), AssemblyBuilderAccess.Run);

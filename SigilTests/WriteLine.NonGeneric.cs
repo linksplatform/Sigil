@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sigil.NonGeneric;
 
 namespace SigilTests
@@ -12,11 +12,7 @@ namespace SigilTests
     public partial class WriteLine
     {
 
-#if WTFDNXTEST
-        [ActualTestMethod]
-#elif !COREFX
-        [TestMethod]
-#endif
+        [Test]
         public void WriteLineFormatNonGeneric()
         {
             {
@@ -65,11 +61,7 @@ namespace SigilTests
             }
         }
 
-#if WTFDNXTEST
-        [ActualTestMethod]
-#elif !COREFX
-        [TestMethod]
-#endif
+        [Test]
         public void WriteLineSimpleNonGeneric()
         {
             var el = Emit.NewDynamicMethod(typeof(string), Type.EmptyTypes);

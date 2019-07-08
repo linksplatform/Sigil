@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class LoadElement
     {
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var e1 = Emit<Func<int[], int, int>>.NewDynamicMethod("E1");
@@ -36,7 +36,7 @@ namespace SigilTests
             Assert.AreEqual("hello", d2(new[] { "world", "hello" }));
         }
 
-        [TestMethod]
+        [Test]
         public void Byte()
         {
             {
@@ -52,7 +52,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void SByte()
         {
             {
@@ -68,7 +68,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public unsafe void Pointer()
         {
             {
@@ -90,7 +90,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Short()
         {
             {
@@ -106,7 +106,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UShort()
         {
             {
@@ -122,7 +122,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UInt()
         {
             {
@@ -138,7 +138,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Long()
         {
             {
@@ -154,7 +154,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ULong()
         {
             {
@@ -170,7 +170,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Float()
         {
             {
@@ -186,7 +186,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Double()
         {
             {
@@ -202,7 +202,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Struct()
         {
             {

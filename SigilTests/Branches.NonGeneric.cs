@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace SigilTests
 {
     public partial class Branches
     {
-        [TestMethod]
+        [Test]
         public void ScanNonGeneric()
         {
             var terms = new[] { "hello", "world", "fizz", "buzz" };
@@ -56,7 +56,7 @@ namespace SigilTests
             Assert.AreEqual(3, d1("buzz"));
         }
 
-        [TestMethod]
+        [Test]
         public void ConditionalBranchOverNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes);
@@ -86,7 +86,7 @@ namespace SigilTests
             Assert.AreEqual(123 + 456, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void ManyConditionalNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(void), Type.EmptyTypes);
@@ -114,7 +114,7 @@ namespace SigilTests
             d1();
         }
 
-        [TestMethod]
+        [Test]
         public void InMethodNonGeneric()
         {
             var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);
@@ -152,7 +152,7 @@ namespace SigilTests
             Assert.AreEqual("greater than", d1(50));
         }
 
-        [TestMethod]
+        [Test]
         public void BranchingOverExceptionsNonGeneric()
         {
             {
@@ -232,7 +232,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LeaveDataOnStackBetweenBranchesNonGeneric()
         {
             var il = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes, "LeaveDataOnStackBetweenBranches");
@@ -256,7 +256,7 @@ namespace SigilTests
             Assert.AreEqual(4, i);
         }
 
-        [TestMethod]
+        [Test]
         public void ShortFormNonGeneric()
         {
             {
@@ -294,7 +294,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ShortFormNoOptimizationsNonGeneric()
         {
             {
@@ -332,7 +332,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BinaryInputNonGeneric()
         {
             var emit = typeof(Emit);
@@ -366,7 +366,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UnaryInputNonGeneric()
         {
             {
@@ -396,7 +396,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MultiLabelNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes, "E1");
@@ -429,7 +429,7 @@ namespace SigilTests
             Assert.AreEqual(1, del());
         }
 
-        [TestMethod]
+        [Test]
         public void BrSNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes, "E1");
@@ -452,7 +452,7 @@ namespace SigilTests
             Assert.AreEqual(456, del());
         }
 
-        [TestMethod]
+        [Test]
         public void BrNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes, "E1");
@@ -477,7 +477,7 @@ namespace SigilTests
             Assert.AreEqual(111, del());
         }
 
-        [TestMethod]
+        [Test]
         public void BeqSNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes, "E1");
@@ -499,7 +499,7 @@ namespace SigilTests
             Assert.AreEqual(314, del());
         }
 
-        [TestMethod]
+        [Test]
         public void BeqNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes, "E1");

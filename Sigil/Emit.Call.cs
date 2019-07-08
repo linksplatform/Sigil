@@ -42,10 +42,11 @@ namespace Sigil
 
                     if (callIx == -1) continue;
                     if (call.TakesManagedPointer()) continue;
-#if !COREFX // see https://github.com/dotnet/corefx/issues/4543 item 4
-                    if (call.TakesTypedReference()) continue;
+                    // TODO: see https://github.com/dotnet/corefx/issues/4543 item 4
+#if !NETSTANDARD
+					if( call.TakesTypedReference()) continue;
 #endif
-                    if (call.TakesByRefArgs()) continue;
+                    if( call.TakesByRefArgs()) continue;
 
                     var callReturns = call.MethodReturnType;
                     var delegateReturns = ReturnType.Type;
@@ -240,7 +241,7 @@ namespace Sigil
             var consDeclaredIn = cons.DeclaringType;
 
             var curType = ConstructorDefinedInType ?? (ConstrBuilder.DeclaringType);
-#if COREFX
+#if NETSTANDARD
             var baseType = curType.GetTypeInfo().BaseType;
 #else
             var baseType = curType.BaseType;

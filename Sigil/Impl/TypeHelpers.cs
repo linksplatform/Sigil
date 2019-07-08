@@ -9,7 +9,7 @@ namespace Sigil.Impl
     /// </summary>
     internal static class TypeHelpers
     {
-#if COREFX
+#if NETSTANDARD
         public static readonly Type[] EmptyTypes = new Type[0];
         public static Type GetBaseType(Type type)
         {

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class LoadElement
     {
-        [TestMethod]
+        [Test]
         public void SimpleNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(int[]), typeof(int) }, "E1");
@@ -35,7 +35,7 @@ namespace SigilTests
             Assert.AreEqual("hello", d2(new[] { "world", "hello" }));
         }
 
-        [TestMethod]
+        [Test]
         public void ByteNonGeneric()
         {
             {
@@ -51,7 +51,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void SByteNonGeneric()
         {
             {
@@ -67,7 +67,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public unsafe void PointerNonGeneric()
         {
             {
@@ -87,7 +87,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ShortNonGeneric()
         {
             {
@@ -103,7 +103,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UShortNonGeneric()
         {
             {
@@ -119,7 +119,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UIntNonGeneric()
         {
             {
@@ -135,7 +135,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LongNonGeneric()
         {
             {
@@ -151,7 +151,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ULongNonGeneric()
         {
             {
@@ -167,7 +167,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void FloatNonGeneric()
         {
             {
@@ -183,7 +183,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void DoubleNonGeneric()
         {
             {
@@ -199,7 +199,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void StructNonGeneric()
         {
             {

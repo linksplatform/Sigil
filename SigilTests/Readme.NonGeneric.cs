@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace SigilTests
 {
     public partial class Readme
     {
-        [TestMethod]
+        [Test]
         public void Block1NonGeneric()
         {
             {
@@ -44,7 +44,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Block2NonGeneric()
         {
             // Create a delegate that sums two integers
@@ -60,7 +60,7 @@ namespace SigilTests
             Assert.AreEqual(473, del(314, 159));
         }
 
-        [TestMethod]
+        [Test]
         public void Block3NonGeneric()
         {
             try
@@ -79,7 +79,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Block4NonGeneric()
         {
             MethodInfo mayFail = typeof(Readme).GetMethod("MayFail");
@@ -137,7 +137,7 @@ namespace SigilTests
             Assert.IsFalse(AlwaysCallCalled);
         }
 
-        [TestMethod]
+        [Test]
         public void Block5NonGeneric()
         {
             Action mayFail = () => MayFail();
@@ -180,7 +180,7 @@ namespace SigilTests
             Assert.IsFalse(AlwaysCallCalled);
         }
 
-        [TestMethod]
+        [Test]
         public void Block6NonGeneric()
         {
             var emiter = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes, "Unconditional");

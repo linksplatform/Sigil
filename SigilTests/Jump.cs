@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class Jump
     {
         private static int SimpleSet;
@@ -16,7 +16,7 @@ namespace SigilTests
             SimpleSet = x;
         }
 
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var simpleSet = typeof(Jump).GetMethod("SimpleSetM");

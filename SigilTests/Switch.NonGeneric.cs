@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class Switch
     {
-        [TestMethod]
+        [Test]
         public void ReturnCheckingNonGeneric()
         {
             {
@@ -66,7 +66,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void SimpleNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(bool), new [] { typeof(int) });

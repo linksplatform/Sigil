@@ -1,6 +1,6 @@
 ﻿using Sigil.Impl;
 using System;
-#if !COREFX
+#if !NETSTANDARD
 using System.Runtime.Serialization;
 #endif
 using System.Text;
@@ -16,17 +16,17 @@ namespace Sigil
     /// 
     /// SigilVerificationException will typically include the state of the stack (or stacks) at the instruction in error.
     /// </summary>
-#if !COREFX
+#if !NETSTANDARD
     [Serializable]
 #endif
     public class SigilVerificationException : Exception
-#if !COREFX
+#if !NETSTANDARD
         , ISerializable
 #endif
     {
-        private string[] Instructions;
-        private VerificationResult VerificationFailure;
-        private ReturnTracerResult ReturnFailure;
+        private readonly string[] Instructions;
+        private readonly VerificationResult VerificationFailure;
+        private readonly ReturnTracerResult ReturnFailure;
 
         internal SigilVerificationException(string message, ReturnTracerResult failure, string[] instructions)
             : this(message, instructions)
@@ -180,7 +180,7 @@ namespace Sigil
             {
                 var line = Instructions[i];
 
-                if (i == instrIx) line = line + "  // relevant instruction";
+                if (i == instrIx) line += "  // relevant instruction";
 
                 if (!string.IsNullOrEmpty(line))
                 {
@@ -215,13 +215,11 @@ namespace Sigil
             }
         }
 
-#if !COREFX
+#if !NETSTANDARD
         /// <summary>
         /// Implementation for ISerializable.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             if (info == null)
@@ -236,9 +234,7 @@ namespace Sigil
         /// <summary>
         /// Returns the message and stacks on this exception, in string form.
         /// </summary>
-#if NET45
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-#endif
+
         public override string ToString()
         {
             return

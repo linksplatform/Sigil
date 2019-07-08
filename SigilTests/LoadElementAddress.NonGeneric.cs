@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace SigilTests
 {
     public partial class LoadElementAddress
     {
-        [TestMethod]
+        [Test]
         public void SimpleNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(int[]), typeof(int) }, "E1");
@@ -29,7 +29,7 @@ namespace SigilTests
             Assert.IsTrue(instrs.Contains("readonly."));
         }
 
-        [TestMethod]
+        [Test]
         public void NotReadonlyNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(void), new[] { typeof(int[]), typeof(int) }, "E1");
@@ -56,7 +56,7 @@ namespace SigilTests
             Assert.IsFalse(instrs.Contains("readonly."));
         }
 
-        [TestMethod]
+        [Test]
         public void ReadOnlyCallNonGeneric()
         {
             var toString = typeof(object).GetMethod("ToString");
@@ -76,7 +76,7 @@ namespace SigilTests
             Assert.IsTrue(instrs.Contains("readonly."));
         }
 
-        [TestMethod]
+        [Test]
         public void NotReadOnlyCallNonGeneric()
         {
             var toString = typeof(object).GetMethod("ToString");

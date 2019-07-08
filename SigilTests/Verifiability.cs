@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -7,8 +7,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SigilTests
 {
@@ -20,7 +18,7 @@ namespace SigilTests
     /// and then confirm that Sigil won't allow that instruction (or instruction sequence) when in a "verified instructions only" mode.
     /// And then that the same sequence actually works in "unverified" mode.
     /// </summary>
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public class Verifiability
     {
         class _Usage
@@ -30,12 +28,12 @@ namespace SigilTests
 #pragma warning restore 0649
         }
 
-        [TestMethod]
+        [Test]
         public void Usage()
         {
             var e1 = Emit<Func<_Usage, string>>.NewDynamicMethod();
             var l1 = e1.DefineLabel();
-            
+
 
             e1.LoadArgument(0);
             e1.LoadField(typeof(_Usage).GetField("Foo"));
@@ -66,7 +64,7 @@ namespace SigilTests
 #pragma warning restore 0649
         }
 
-        [TestMethod]
+        [Test]
         public void FollowTrace()
         {
             var e1 = Emit<Func<_FollowTrace, _FollowTrace, int>>.NewDynamicMethod();
@@ -93,7 +91,7 @@ namespace SigilTests
                 IEnumerable<OperationResultUsage<Func<_FollowTrace, _FollowTrace, int>>> prev = x.Where(r => r.ProducesResult.OpCode == OpCodes.Ldarg_0).ToList();
                 IEnumerable<OperationResultUsage<Func<_FollowTrace, _FollowTrace, int>>> cur = prev;
 
-                while (cur.Count() > 0)
+                while(cur.Count() > 0)
                 {
                     prev = cur;
 
@@ -115,7 +113,7 @@ namespace SigilTests
                 IEnumerable<OperationResultUsage<Func<_FollowTrace, _FollowTrace, int>>> prev = x.Where(r => r.ProducesResult.OpCode == OpCodes.Ldarg_1).ToList();
                 IEnumerable<OperationResultUsage<Func<_FollowTrace, _FollowTrace, int>>> cur = prev;
 
-                while (cur.Count() > 0)
+                while(cur.Count() > 0)
                 {
                     prev = cur;
 
@@ -132,7 +130,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Ldelema()
         {
             try
@@ -150,8 +148,11 @@ namespace SigilTests
                 d1(new int[] { 123 });
                 Assert.Fail();
             }
-            catch (VerificationException) { }
-
+#if NETCOREAPP
+            catch(InvalidProgramException) { }
+#else
+            catch(VerificationException) { }
+#endif
             {
                 var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);
                 var mod = asm.DefineDynamicModule("Bar");
@@ -165,7 +166,7 @@ namespace SigilTests
                     e1.LoadElementAddress<int>();
                     Assert.Fail();
                 }
-                catch (InvalidOperationException e)
+                catch(InvalidOperationException e)
                 {
                     Assert.AreEqual("LoadElementAddress isn't verifiable", e.Message);
                 }
@@ -186,7 +187,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Calli()
         {
             var writeLine = typeof(Console).GetMethod("WriteLine", Type.EmptyTypes);
@@ -196,7 +197,7 @@ namespace SigilTests
                 var dyn = new DynamicMethod("E1", typeof(void), Type.EmptyTypes);
                 var il = dyn.GetILGenerator();
                 il.Emit(OpCodes.Ldftn, writeLine);
-#if COREFX
+#if NETCOREAPP
                 il.EmitCalli(OpCodes.Calli, System.Reflection.CallingConventions.Standard, typeof(void), Type.EmptyTypes, null);
 #else
                 il.EmitCalli(OpCodes.Calli, System.Runtime.InteropServices.CallingConvention.StdCall, typeof(void), Type.EmptyTypes);
@@ -206,9 +207,15 @@ namespace SigilTests
                 var d1 = (Action)dyn.CreateDelegate(typeof(Action));
 
                 d1();
+#if !NETCOREAPP
                 Assert.Fail();
+#endif
             }
-            catch (VerificationException) { }
+#if NETCOREAPP
+            catch(InvalidProgramException) { }
+#else
+            catch(VerificationException) { }
+#endif
 
             {
                 var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);
@@ -217,13 +224,13 @@ namespace SigilTests
 
                 var e1 = Emit<Action>.BuildMethod(t, "E1", MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard);
                 e1.LoadFunctionPointer(writeLine);
-                
+
                 try
                 {
                     e1.CallIndirect(CallingConventions.Standard);
                     Assert.Fail();
                 }
-                catch (InvalidOperationException e)
+                catch(InvalidOperationException e)
                 {
                     Assert.AreEqual("CallIndirect isn't verifiable", e.Message);
                 }
@@ -241,7 +248,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Localloc()
         {
             try
@@ -250,7 +257,7 @@ namespace SigilTests
                 var il = dyn.GetILGenerator();
                 il.Emit(OpCodes.Ldc_I4_8);
                 il.Emit(OpCodes.Localloc);
-                il.Emit(OpCodes.Pop);
+                il.Emit(OpCodes.Stloc_0);
                 il.Emit(OpCodes.Ret);
 
                 var d1 = (Action)dyn.CreateDelegate(typeof(Action));
@@ -258,7 +265,11 @@ namespace SigilTests
 
                 Assert.Fail();
             }
-            catch (VerificationException) { }
+#if NETCOREAPP
+            catch(InvalidProgramException) { }
+#else
+            catch(VerificationException) { }
+#endif
 
             {
                 var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);
@@ -273,7 +284,7 @@ namespace SigilTests
                     e1.LocalAllocate();
                     Assert.Fail();
                 }
-                catch (InvalidOperationException e)
+                catch(InvalidOperationException e)
                 {
                     Assert.AreEqual("LocalAllocate isn't verifiable", e.Message);
                 }
@@ -292,7 +303,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Cpblk()
         {
             var src = Marshal.AllocHGlobal(8);
@@ -313,9 +324,15 @@ namespace SigilTests
                     var d1 = (Action<IntPtr, IntPtr>)dyn.CreateDelegate(typeof(Action<IntPtr, IntPtr>));
                     d1(dest, src);
 
-                    Assert.Fail();
+#if !NETCOREAPP
+                Assert.Fail();
+#endif
                 }
-                catch (VerificationException) { }
+#if NETCOREAPP
+                catch(InvalidProgramException) { }
+#else
+                catch(VerificationException) { }
+#endif
 
                 {
                     var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);
@@ -332,7 +349,7 @@ namespace SigilTests
                         e1.CopyBlock();
                         Assert.Fail();
                     }
-                    catch (InvalidOperationException e)
+                    catch(InvalidOperationException e)
                     {
                         Assert.AreEqual("CopyBlock isn't verifiable", e.Message);
                     }
@@ -358,7 +375,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Initblk()
         {
             var blk = Marshal.AllocHGlobal(8);
@@ -378,9 +395,15 @@ namespace SigilTests
                     var d1 = (Action<IntPtr>)dyn.CreateDelegate(typeof(Action<IntPtr>));
                     d1(blk);
 
-                    Assert.Fail();
+#if !NETCOREAPP
+                Assert.Fail();
+#endif
                 }
-                catch (VerificationException) { }
+#if NETCOREAPP
+                catch(InvalidProgramException) { }
+#else
+                catch(VerificationException) { }
+#endif
 
                 {
                     var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);
@@ -397,7 +420,7 @@ namespace SigilTests
                         e1.InitializeBlock();
                         Assert.Fail();
                     }
-                    catch (InvalidOperationException e)
+                    catch(InvalidOperationException e)
                     {
                         Assert.AreEqual("InitializeBlock isn't verifiable", e.Message);
                     }
@@ -422,7 +445,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Jmp()
         {
             var writeLine = typeof(Console).GetMethod("WriteLine", Type.EmptyTypes);
@@ -437,9 +460,15 @@ namespace SigilTests
                 var d1 = (Action)dyn.CreateDelegate(typeof(Action));
                 d1();
 
+#if !NETCOREAPP
                 Assert.Fail();
+#endif
             }
-            catch (VerificationException) { }
+#if NETCOREAPP
+            catch(InvalidProgramException) { }
+#else
+            catch(VerificationException) { }
+#endif
 
             {
                 var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);
@@ -453,7 +482,7 @@ namespace SigilTests
                     e1.Jump(writeLine);
                     Assert.Fail();
                 }
-                catch (InvalidOperationException e)
+                catch(InvalidOperationException e)
                 {
                     Assert.AreEqual("Jump isn't verifiable", e.Message);
                 }
@@ -475,7 +504,7 @@ namespace SigilTests
             public readonly int Field;
         }
 
-        [TestMethod]
+        [Test]
         public void LdfldaInitOnly()
         {
             var fld = typeof(LdfldaClass).GetField("Field");
@@ -492,9 +521,15 @@ namespace SigilTests
                 var d1 = (Action<LdfldaClass>)dyn.CreateDelegate(typeof(Action<LdfldaClass>));
                 d1(new LdfldaClass());
 
+#if !NETCOREAPP
                 Assert.Fail();
+#endif
             }
-            catch (VerificationException) { }
+#if NETCOREAPP
+            catch(InvalidProgramException) { }
+#else
+            catch(VerificationException) { }
+#endif
 
             {
                 var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);
@@ -510,7 +545,7 @@ namespace SigilTests
                     e1.LoadFieldAddress(fld);
                     Assert.Fail();
                 }
-                catch (InvalidOperationException e)
+                catch(InvalidOperationException e)
                 {
                     Assert.AreEqual("LoadFieldAddress on InitOnly fields is not verifiable", e.Message);
                 }
@@ -529,7 +564,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void StrictBranchVerification()
         {
             // See: https://github.com/kevin-montrose/Sigil/issues/15
@@ -551,10 +586,10 @@ namespace SigilTests
             try
             {
                 il.Branch(b);       // <- should explode, stack is *known* to be empty at b but there's a constant on the stack at this branch
-                
+
                 Assert.Fail();
             }
-            catch (SigilVerificationException e)
+            catch(SigilVerificationException e)
             {
                 Assert.AreEqual("Branch expected the stack of be empty", e.Message);
             }

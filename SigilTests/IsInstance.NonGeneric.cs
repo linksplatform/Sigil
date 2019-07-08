@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class IsInstance
     {
-        [TestMethod]
+        [Test]
         public void NotElidedNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), new [] { typeof(string) });
@@ -26,7 +26,7 @@ namespace SigilTests
             Assert.IsTrue(instrs.Contains("isinst"));
         }
 
-        [TestMethod]
+        [Test]
         public void ElidedNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), new [] { typeof(string) });
@@ -42,7 +42,7 @@ namespace SigilTests
             Assert.IsFalse(instrs.Contains("isinst"));
         }
 
-        [TestMethod]
+        [Test]
         public void SimpleNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), new [] { typeof(object) });

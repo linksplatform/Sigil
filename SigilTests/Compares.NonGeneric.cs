@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class Compares
     {
-        [TestMethod]
+        [Test]
         public void EqualsNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(bool), new [] { typeof(int), typeof(int) });
@@ -25,7 +25,7 @@ namespace SigilTests
             Assert.IsFalse(d1(1, 2));
         }
 
-        [TestMethod]
+        [Test]
         public void GreaterThanNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(bool), new [] { typeof(int), typeof(int) });
@@ -40,7 +40,7 @@ namespace SigilTests
             Assert.IsFalse(d1(1, 1));
         }
 
-        [TestMethod]
+        [Test]
         public void LessThanNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(bool), new [] { typeof(int), typeof(int) });
@@ -55,7 +55,7 @@ namespace SigilTests
             Assert.IsFalse(d1(1, 1));
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedCompareGreaterThanNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(bool), new [] { typeof(uint), typeof(uint) });
@@ -70,7 +70,7 @@ namespace SigilTests
             Assert.IsFalse(d1(1, 1));
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedCompareLessThanNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(bool), new [] { typeof(uint), typeof(uint) });

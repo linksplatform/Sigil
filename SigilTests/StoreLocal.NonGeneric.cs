@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class StoreLocal
     {
-        [TestMethod]
+        [Test]
         public void IntNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes, "E1");

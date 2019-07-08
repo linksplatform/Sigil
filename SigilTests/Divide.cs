@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class Divide
     {
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var e1 = Emit<Func<double, double, double>>.NewDynamicMethod("E1");
@@ -24,7 +24,7 @@ namespace SigilTests
             Assert.AreEqual(3.14 / 1.59, d1(3.14, 1.59));
         }
 
-        [TestMethod]
+        [Test]
         public void Unsigned()
         {
             var e1 = Emit<Func<uint, uint, uint>>.NewDynamicMethod("E1");

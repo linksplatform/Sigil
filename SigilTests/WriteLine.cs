@@ -4,13 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sigil;
 using System.Reflection;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class WriteLine
     {
         internal static MethodInfo GetStreamWriterFlush()
@@ -18,19 +18,17 @@ namespace SigilTests
             // note: on core-clr an overload shows ups, so we need to explicitly
             // look for the parameterless version
 
-#if WTFDNXTEST
+#if NETCOREAPP1_1
             // very odd; this should work fine, but kinda breaks the test runner - doesn't
             // complete cleanly; the test itself works in the debugger, so I don't think it
             // is an stack-overflow, oom, infinite loop, or anything else braindead
             return typeof(StreamWriter).GetMethod("Flush", Type.EmptyTypes);
-#endif          
+#else
             return typeof(StreamWriter).GetMethod(nameof(StreamWriter.Flush));
+#endif          
         }
-#if WTFDNXTEST
-        [ActualTestMethod]
-#elif !COREFX
-        [TestMethod]
-#endif
+
+        [Test]
         public void WriteLineFormat()
         {
             // Assert.Fail("didn't start method");
@@ -80,11 +78,7 @@ namespace SigilTests
             // Assert.Fail("exited method cleanly");
         }
 
-#if WTFDNXTEST
-        [ActualTestMethod]
-#elif !COREFX
-        [TestMethod]
-#endif
+        [Test]
         public void WriteLineSimple()
         {
             var el = Emit<Func<string>>.NewDynamicMethod();

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class Subtract
     {
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var e1 = Emit<Func<double, double, double>>.NewDynamicMethod("E1");
@@ -25,7 +25,7 @@ namespace SigilTests
             Assert.AreEqual(3.14 - 1.59, d1(3.14, 1.59));
         }
 
-        [TestMethod]
+        [Test]
         public void Overflow()
         {
             var e1 = Emit<Func<double, double, double>>.NewDynamicMethod("E1");
@@ -39,7 +39,7 @@ namespace SigilTests
             Assert.AreEqual(3.14 - 1.59, d1(3.14, 1.59));
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedOverflow()
         {
             var e1 = Emit<Func<double, double, double>>.NewDynamicMethod("E1");

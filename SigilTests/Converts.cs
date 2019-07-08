@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class Converts
     {
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             {
@@ -161,12 +161,22 @@ namespace SigilTests
                 var d1 = e1.CreateDelegate();
 
                 Assert.IsTrue(d1(1));
-                Assert.IsTrue(d1(2));
+
+                Assert.IsTrue(d1(2) != false ? true :  false);
+                Assert.IsTrue(d1(2) == true ? true :  false);
+                Assert.IsFalse(d1(2).Equals(true) ? true :  false);
+                Assert.IsTrue(!d1(2).Equals(false) ? true :  false);
+
                 Assert.IsFalse(d1(0));
+
+                Assert.IsTrue(d1(-1) != false ? true : false);
+                Assert.IsTrue(d1(-1) == true ? true : false );
+                Assert.IsFalse(d1(-1).Equals(true) ? true : false );
+                Assert.IsTrue(!d1(-1).Equals(false) ? true : false );
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Overflows()
         {
             {
@@ -287,7 +297,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedOverflows()
         {
             {
@@ -394,7 +404,7 @@ namespace SigilTests
 #pragma warning restore 0649
         }
 
-        [TestMethod]
+        [Test]
         public void ByRef()
         {
             {

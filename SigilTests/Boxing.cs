@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class Boxing
     {
-        [TestMethod]
+        [Test]
         public void NullableInt()
         {
             var e1 = Emit<Func<int?, object>>.NewDynamicMethod("E1");
@@ -24,7 +24,7 @@ namespace SigilTests
             Assert.AreEqual((object)((int?)null), d1(null));
         }
 
-        [TestMethod]
+        [Test]
         public void Boolean()
         {
             var e1 = Emit<Func<bool, object>>.NewDynamicMethod("E1");
@@ -38,7 +38,7 @@ namespace SigilTests
             Assert.AreEqual((object)false, d1(false));
         }
 
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var e1 = Emit<Func<object>>.NewDynamicMethod("E1");

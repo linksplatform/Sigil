@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public unsafe partial class Add
     {
         private delegate int* PointerToPointerDelegate(int by, int* ptr);
 
-        [TestMethod]
+        [Test]
         public unsafe void PointerToPointer()
         {
             var e1 = Emit<PointerToPointerDelegate>.NewDynamicMethod();
@@ -36,7 +36,7 @@ namespace SigilTests
 
         private delegate void ByRefToByRefDelegate(ref int a, int b, ref int c);
 
-        [TestMethod]
+        [Test]
         public unsafe void ByRefToByRef()
         {
             var e1 = Emit<ByRefToByRefDelegate>.NewDynamicMethod();
@@ -54,7 +54,7 @@ namespace SigilTests
             Assert.AreEqual(2, a);
         }
 
-        [TestMethod]
+        [Test]
         public void BlogPost()
         {
             {
@@ -111,7 +111,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void IntInt()
         {
             var il = Emit<Func<int>>.NewDynamicMethod("IntInt");
@@ -124,7 +124,7 @@ namespace SigilTests
             Assert.AreEqual(3, del());
         }
 
-        [TestMethod]
+        [Test]
         public void IntNativeInt()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod("E1");
@@ -140,7 +140,7 @@ namespace SigilTests
             Assert.AreEqual(4, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void NativeIntInt()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod("E1");
@@ -156,7 +156,7 @@ namespace SigilTests
             Assert.AreEqual(4, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void NativeIntNativeInt()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod("E1");
@@ -173,7 +173,7 @@ namespace SigilTests
             Assert.AreEqual(4, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void IntPointer()
         {
             var e1 = Emit<Func<int, int>>.NewDynamicMethod("E1");
@@ -197,7 +197,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void PointerInt()
         {
             var e1 = Emit<Func<int, int>>.NewDynamicMethod("E1");
@@ -221,7 +221,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void PointerNativeInt()
         {
             var e1 = Emit<Func<int, int>>.NewDynamicMethod("E1");
@@ -246,7 +246,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LongLong()
         {
             var e1 = Emit<Func<long, long, long>>.NewDynamicMethod("E1");
@@ -260,7 +260,7 @@ namespace SigilTests
             Assert.AreEqual(2 * ((long)uint.MaxValue), d1(uint.MaxValue, uint.MaxValue));
         }
 
-        [TestMethod]
+        [Test]
         public void FloatFloat()
         {
             var e1 = Emit<Func<float, float, float>>.NewDynamicMethod("E1");
@@ -274,7 +274,7 @@ namespace SigilTests
             Assert.AreEqual(3.14f + 1.59f, d1(3.14f, 1.59f));
         }
 
-        [TestMethod]
+        [Test]
         public void DoubleDouble()
         {
             var e1 = Emit<Func<double, double, double>>.NewDynamicMethod("E1");
@@ -288,7 +288,7 @@ namespace SigilTests
             Assert.AreEqual(3.14 + 1.59, d1(3.14, 1.59));
         }
 
-        [TestMethod]
+        [Test]
         public void Overflow()
         {
             var e1 = Emit<Func<double, double, double>>.NewDynamicMethod("E1");
@@ -302,7 +302,7 @@ namespace SigilTests
             Assert.AreEqual(3.14 + 1.59, d1(3.14, 1.59));
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedOverflow()
         {
             var e1 = Emit<Func<double, double, double>>.NewDynamicMethod("E1");

@@ -32,7 +32,7 @@ namespace Sigil
         /// </summary>
         public IEnumerable<Label> Labels { get; private set; }
 
-        private object UsageLock = new object();
+        private readonly object UsageLock = new object();
         private volatile IEnumerable<OperationResultUsage<DelegateType>> _Usage;
         /// <summary>
         /// Traces where values produced by certain operations are used.
@@ -66,7 +66,7 @@ namespace Sigil
         /// </summary>
         public bool CanEmit { get; private set; }
 
-        private List<Operation<DelegateType>> Operations;
+        private readonly List<Operation<DelegateType>> Operations;
         /// <summary>
         /// Returns the operation that would be emitted at the given index.
         /// </summary>

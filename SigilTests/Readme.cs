@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class Readme
     {
-        [TestMethod]
+        [Test]
         public void Block1()
         {
             {
@@ -45,7 +45,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Block2()
         {
             // Create a delegate that sums two integers
@@ -61,7 +61,7 @@ namespace SigilTests
             Assert.AreEqual(473, del(314, 159));
         }
 
-        [TestMethod]
+        [Test]
         public void Block3()
         {
             try
@@ -98,7 +98,7 @@ namespace SigilTests
             AlwaysCallCalled = true;
         }
 
-        [TestMethod]
+        [Test]
         public void Block4()
         {
             MethodInfo mayFail = typeof(Readme).GetMethod("MayFail");
@@ -156,7 +156,7 @@ namespace SigilTests
             Assert.IsFalse(AlwaysCallCalled);
         }
 
-        [TestMethod]
+        [Test]
         public void Block5()
         {
             Action mayFail = () => MayFail();
@@ -199,7 +199,7 @@ namespace SigilTests
             Assert.IsFalse(AlwaysCallCalled);
         }
 
-        [TestMethod]
+        [Test]
         public void Block6()
         {
             var emiter = Emit<Func<int>>.NewDynamicMethod("Unconditional");

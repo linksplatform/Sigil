@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class LoadArguments
     {
-        [TestMethod]
+        [Test]
         public void SimpleNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), new [] { typeof(int) }, "E1");
@@ -24,7 +24,7 @@ namespace SigilTests
             Assert.AreEqual("31415", d1(31415));
         }
 
-        [TestMethod]
+        [Test]
         public void AllNonGeneric()
         {
             var retType = typeof(LotsOfParams).GetMethod("Invoke").ReturnType;

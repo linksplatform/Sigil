@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class TryCatchFinally
     {
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -20,7 +20,7 @@ namespace SigilTests
                 throw new Exception("Whatever");
         }
 
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var e1 = Emit<Func<string>>.NewDynamicMethod("E1");
@@ -43,7 +43,7 @@ namespace SigilTests
             Assert.AreEqual("Whatever", d1());
         }
 
-        [TestMethod]
+        [Test]
         public void Finally()
         {
             var e1 = Emit<Func<string>>.NewDynamicMethod("E1");
@@ -75,7 +75,7 @@ namespace SigilTests
             Assert.AreEqual("Finally!", d1());
         }
 
-        [TestMethod]
+        [Test]
         public void IsCatchAll()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -92,7 +92,7 @@ namespace SigilTests
 
             var e3 = Emit<Action>.NewDynamicMethod("E3");
             var t3 = e3.BeginExceptionBlock();
-#if COREFX
+#if NETCOREAPP
             var c3 = e3.BeginCatchBlock<ArgumentException>(t3);
 #else
             var c3 = e3.BeginCatchBlock<StackOverflowException>(t3);

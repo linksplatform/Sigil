@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class Arglist
     {
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             MethodInfo mtd;
@@ -33,8 +33,12 @@ namespace SigilTests
 
                 var type = t.CreateType();
                 mtd = type.GetMethod("VarArgsMethod");
+
             }
 
+#if NETCOREAPP
+            try
+#endif
             {
                 var e2 = Emit<Func<int>>.NewDynamicMethod();
                 e2.LoadConstant("hello");
@@ -46,8 +50,15 @@ namespace SigilTests
                 var d2 = e2.CreateDelegate(out instr2);
 
                 var i = d2();
+#if NETCOREAPP
+                Assert.Fail();
+#else
                 Assert.AreNotEqual(0, i);
+#endif
             }
+#if NETCOREAPP
+            catch(InvalidProgramException) { }
+#endif       
         }
     }
 }

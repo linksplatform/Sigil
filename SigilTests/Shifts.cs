@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class Shifts
     {
-        [TestMethod]
+        [Test]
         public void Left()
         {
             var e1 = Emit<Func<int, int, int>>.NewDynamicMethod("E1");
@@ -26,7 +26,7 @@ namespace SigilTests
             Assert.AreEqual(5 << 2, d1(5, 2));
         }
 
-        [TestMethod]
+        [Test]
         public void Right()
         {
             var e1 = Emit<Func<int, int, int>>.NewDynamicMethod("E1");
@@ -41,7 +41,7 @@ namespace SigilTests
             Assert.AreEqual(8675309 >> 5, d1(8675309, 5));
         }
 
-        [TestMethod]
+        [Test]
         public void RightUnsigned()
         {
             var e1 = Emit<Func<uint, uint, uint>>.NewDynamicMethod("E1");

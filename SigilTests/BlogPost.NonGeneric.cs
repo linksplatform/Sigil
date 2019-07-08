@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using Sigil.NonGeneric;
 using System;
@@ -11,7 +11,7 @@ namespace SigilTests
 {
     public partial class BlogPost
     {
-        [TestMethod]
+        [Test]
         public void Block1NonGeneric()
         {
             var il = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes, "AddOneAndTwo");
@@ -32,7 +32,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Block2NonGeneric()
         {
             var il = Emit.NewDynamicMethod(typeof(string), new[] { typeof(string), typeof(Func<string, int>) }, "E1");

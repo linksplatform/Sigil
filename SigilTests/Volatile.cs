@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass]
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public class Volatile
     {
         class SimpleClass
@@ -21,7 +20,7 @@ namespace SigilTests
 #pragma warning restore CS0649
         }
 
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var e1 = Emit<Func<SimpleClass, int>>.NewDynamicMethod("e1");
@@ -41,7 +40,7 @@ namespace SigilTests
             public int A;
         }
 
-        [TestMethod]
+        [Test]
         public void None()
         {
             var e1 = Emit<Func<NoneClass, int>>.NewDynamicMethod("e1");
@@ -56,7 +55,7 @@ namespace SigilTests
             Assert.IsFalse(instrs.Contains("volatile."));
         }
 
-        [TestMethod]
+        [Test]
         public void Builder()
         {
             var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Foo"), AssemblyBuilderAccess.Run);

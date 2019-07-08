@@ -37,7 +37,11 @@ namespace SigilTests
         {
             Type[] t = new Type[args.Length];
             for (int i = 0; i < args.Length; i++)
+#if NETCOREAPP
+                t[i] = args[i].CreateTypeInfo().AsType();
+#else
                 t[i] = args[i].AsType();
+#endif
             return type.MakeGenericType(t);
         }
         public static ConstructorInfo GetConstructor(this Type type, params Type[] parameterTypes)
@@ -67,70 +71,4 @@ namespace SigilTests
             return property.GetMethod;
         }
     }
-    public static class Assert
-    {
-        public static void AreEqual<T>(T x, T y)
-        {
-            Xunit.Assert.Equal<T>(x, y);
-        }
-        public static void AreEqual<T>(IEnumerable<T> x, IEnumerable<T> y)
-        {
-            Xunit.Assert.Equal<T>(x, y);
-        }
-        public static void AreNotEqual<T>(T x, T y)
-        {
-            Xunit.Assert.NotEqual<T>(x, y);
-        }
-        public static void AreNotEqual<T>(IEnumerable<T> x, IEnumerable<T> y)
-        {
-            Xunit.Assert.NotEqual<T>(x, y);
-        }
-        public static void IsFalse(bool value)
-        {
-            Xunit.Assert.False(value);
-        }
-        public static void IsTrue(bool value)
-        {
-            Xunit.Assert.True(value);
-        }
-        public static void Fail()
-        {
-            Xunit.Assert.Equal("pass", "fail");
-        }
-        public static void Fail(string message)
-        {
-            string expected = "pass";
-            if (expected == message) expected = "passed"; // unlikely, but!
-            Xunit.Assert.Equal(expected, message);
-        }
-        public static void IsNull(object @object)
-        {
-            Xunit.Assert.Null(@object);
-        }
-        public static void IsNotNull(object @object)
-        {
-            Xunit.Assert.NotNull(@object);
-        }
-        public static void IsInstanceOfType(object @object, Type type)
-        {
-            Xunit.Assert.IsType(type, @object);
-        }
-    }
-}
-namespace Microsoft.VisualStudio.TestTools.UnitTesting
-{
-    class TestClassAttribute : Attribute { }
-#if WTFDNXTEST
-    // disables all the tests except an example of the 4 that are foobar
-    class ActualTestMethodAttribute : Xunit.FactAttribute { }
-    class TestMethodAttribute : Attribute { }
-#else
-    class TestMethodAttribute : Xunit.FactAttribute { }
-#endif
-
-}
-
-namespace System.Diagnostics.CodeAnalysis
-{
-    class ExcludeFromCodeCoverageAttribute : Attribute { }
 }

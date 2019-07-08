@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class CallIndirect
     {
         public static string Foo(int i)
@@ -25,7 +25,7 @@ namespace SigilTests
             return ret;
         }
 
-        [TestMethod]
+        [Test]
         public void Simple()
         {
             var foo = typeof(CallIndirect).GetMethod("Foo");
@@ -49,7 +49,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Virtual()
         {
             var toString = typeof(object).GetMethod("ToString");

@@ -18,7 +18,7 @@ namespace Sigil
 
         static Emit()
         {
-#if COREFX
+#if NETSTANDARD
             var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Sigil.Emit.DynamicAssembly"), AssemblyBuilderAccess.Run);
 #else
             var asm = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName("Sigil.Emit.DynamicAssembly"), AssemblyBuilderAccess.Run);
@@ -28,37 +28,37 @@ namespace Sigil
 
         private bool Invalidated;
 
-        private BufferedILGenerator<DelegateType> IL;
-        private TypeOnStack ReturnType;
-        private Type[] ParameterTypes;
-        private CallingConventions CallingConventions;
+        private readonly BufferedILGenerator<DelegateType> IL;
+        private readonly TypeOnStack ReturnType;
+		private readonly Type[] ParameterTypes;
+        private readonly CallingConventions CallingConventions;
 
-        private LinqList<VerifiableTracker> Trackers;
+        private readonly LinqList<VerifiableTracker> Trackers;
 
         private ushort NextLocalIndex = 0;
 
-        private LinqList<Local> AllLocals;
+		private readonly LinqList<Local> AllLocals;
 
-        private LinqHashSet<Local> UnusedLocals;
-        private LinqHashSet<Label> UnusedLabels;
-        private LinqHashSet<Label> UnmarkedLabels;
+        private readonly LinqHashSet<Local> UnusedLocals;
+        private readonly LinqHashSet<Label> UnusedLabels;
+        private readonly LinqHashSet<Label> UnmarkedLabels;
 
-        private LinqList<SigilTuple<OpCode, Label, int>> Branches;
-        private LinqDictionary<Label, int> Marks;
-        private LinqList<int> Returns;
-        private LinqList<int> Throws;
+        private readonly LinqList<SigilTuple<OpCode, Label, int>> Branches;
+        private readonly LinqDictionary<Label, int> Marks;
+        private readonly LinqList<int> Returns;
+        private readonly LinqList<int> Throws;
 
-        private LinqDictionary<int, SigilTuple<Label, UpdateOpCodeDelegate, OpCode>> BranchPatches;
+        private readonly LinqDictionary<int, SigilTuple<Label, UpdateOpCodeDelegate, OpCode>> BranchPatches;
 
-        private Stack<ExceptionBlock> CurrentExceptionBlock;
+        private readonly Stack<ExceptionBlock> CurrentExceptionBlock;
 
-        private LinqDictionary<ExceptionBlock, SigilTuple<int, int>> TryBlocks;
-        private LinqDictionary<CatchBlock, SigilTuple<int, int>> CatchBlocks;
-        private LinqDictionary<FinallyBlock, SigilTuple<int, int>> FinallyBlocks;
+        private readonly LinqDictionary<ExceptionBlock, SigilTuple<int, int>> TryBlocks;
+		private readonly LinqDictionary<CatchBlock, SigilTuple<int, int>> CatchBlocks;
+        private readonly LinqDictionary<FinallyBlock, SigilTuple<int, int>> FinallyBlocks;
 
-        private LinqList<SigilTuple<int, TypeOnStack>> ReadonlyPatches;
+        private readonly LinqList<SigilTuple<int, TypeOnStack>> ReadonlyPatches;
 
-        private EmitShorthand<DelegateType> Shorthand;
+        private readonly EmitShorthand<DelegateType> Shorthand;
 
         // These can only ever be set if we're building a DynamicMethod
         private DelegateType CreatedDelegate;
@@ -103,7 +103,7 @@ namespace Sigil
 
         private LinqList<Local> FreedLocals { get; set; }
 
-        private LinqDictionary<string, Local> CurrentLocals;
+        private readonly LinqDictionary<string, Local> CurrentLocals;
 
         /// <summary>
         /// Lookup for the locals currently in scope by name.
@@ -113,24 +113,24 @@ namespace Sigil
         /// </summary>
         public LocalLookup Locals { get; private set; }
 
-        private LinqDictionary<string, Label> CurrentLabels;
+        private readonly LinqDictionary<string, Label> CurrentLabels;
 
         /// <summary>
         /// Lookup for declared labels by name.
         /// </summary>
         public LabelLookup Labels { get; private set; }
 
-        private RollingVerifier CurrentVerifiers;
+		private readonly RollingVerifier CurrentVerifiers;
 
         private bool MustMark;
 
-        private LinqList<int> ElidableCasts;
+        private readonly LinqList<int> ElidableCasts;
 
-        private LinqDictionary<int, LinqList<TypeOnStack>> TypesProducedAtIndex;
+        private readonly LinqDictionary<int, LinqList<TypeOnStack>> TypesProducedAtIndex;
 
-        private bool IsVerifying;
+        private readonly bool IsVerifying;
 
-        private bool UsesStrictBranchVerification;
+        private readonly bool UsesStrictBranchVerification;
 
         private Emit(CallingConventions callConvention, Type returnType, Type[] parameterTypes, bool allowUnverifiable, bool doVerify, bool strictBranchVerification)
         {
@@ -353,9 +353,8 @@ namespace Sigil
         /// </summary>
         public DelegateType CreateDelegate(OptimizationOptions optimizationOptions = OptimizationOptions.All)
         {
-            string ignored;
-            return CreateDelegate(out ignored, optimizationOptions);
-        }
+			return CreateDelegate( instructions: out _, optimizationOptions );
+		}
 
         /// <summary>
         /// Writes the CIL stream out to the MethodBuilder used to create this Emit.
@@ -410,9 +409,8 @@ namespace Sigil
         /// </summary>
         public MethodBuilder CreateMethod(OptimizationOptions optimizationOptions = OptimizationOptions.All)
         {
-            string ignored;
-            return CreateMethod(out ignored, optimizationOptions);
-        }
+			return CreateMethod( instructions: out _, optimizationOptions );
+		}
 
         /// <summary>
         /// Writes the CIL stream out to the ConstructorBuilder used to create this Emit.
@@ -467,9 +465,8 @@ namespace Sigil
         /// </summary>
         public ConstructorBuilder CreateConstructor(OptimizationOptions optimizationOptions = OptimizationOptions.All)
         {
-            string ignored;
-            return CreateConstructor(out ignored, optimizationOptions);
-        }
+			return CreateConstructor( instructions: out _, optimizationOptions );
+		}
 
         /// <summary>
         /// Writes the CIL stream out to the ConstructorBuilder used to create this Emit.
@@ -524,9 +521,8 @@ namespace Sigil
         /// </summary>
         public ConstructorBuilder CreateTypeInitializer(OptimizationOptions optimizationOptions = OptimizationOptions.All) 
         {
-            string ignored;
-            return CreateTypeInitializer(out ignored, optimizationOptions);
-        }
+			return CreateTypeInitializer( instructions: out _, optimizationOptions );
+		}
 
         private static void ValidateNewParameters<CheckDelegateType>()
         {
@@ -534,7 +530,7 @@ namespace Sigil
 
             var baseTypes = new LinqHashSet<Type>();
             baseTypes.Add(delType);
-#if COREFX
+#if NETSTANDARD
             var bType = delType.GetTypeInfo().BaseType;
 #else
             var bType = delType.BaseType;
@@ -550,9 +546,9 @@ namespace Sigil
                 throw new ArgumentException("DelegateType must be a delegate, found " + delType.FullName);
             }
         }
-
-#if !COREFX // see https://github.com/dotnet/corefx/issues/4543 item 2
-        internal static bool AllowsUnverifiableCode(Module m)
+        // TODO: see https://github.com/dotnet/corefx/issues/4543 item 2
+#if !NETSTANDARD
+		internal static bool AllowsUnverifiableCode(Module m)
         {
             return Attribute.IsDefined(m, typeof(System.Security.UnverifiableCodeAttribute));
         }
@@ -615,10 +611,12 @@ namespace Sigil
 
             var dynMethod = new DynamicMethod(name, returnType, parameterTypes, module, skipVisibility: true);
 
-            var ret = new Emit<DelegateType>(dynMethod.CallingConvention, returnType, parameterTypes, AllowsUnverifiableCode(module), doVerify, strictBranchVerification);
-            ret.DynMethod = dynMethod;
+			var ret = new Emit<DelegateType>( dynMethod.CallingConvention, returnType, parameterTypes, AllowsUnverifiableCode( module ), doVerify, strictBranchVerification )
+			{
+				DynMethod = dynMethod
+			};
 
-            return ret;
+			return ret;
         }
 
         /// <summary>
@@ -652,16 +650,18 @@ namespace Sigil
             var parameterTypes = ((LinqArray<ParameterInfo>)invoke.GetParameters()).Select(s => s.ParameterType).ToArray();
 
             var dynMethod = new DynamicMethod(name, returnType, parameterTypes, owner, skipVisibility: true);
-
-#if COREFX // see https://github.com/dotnet/corefx/issues/4543 item 2
+            // TODO: see https://github.com/dotnet/corefx/issues/4543 item 2
+#if NETSTANDARD
             const bool allowUnverifiable = false;
 #else
-            bool allowUnverifiable = AllowsUnverifiableCode(TypeHelpers.GetModule(owner));
+			bool allowUnverifiable = AllowsUnverifiableCode(TypeHelpers.GetModule(owner));
 #endif
-            var ret = new Emit<DelegateType>(dynMethod.CallingConvention, returnType, parameterTypes, allowUnverifiable, doVerify, strictBranchVerification);
-            ret.DynMethod = dynMethod;
+			var ret = new Emit<DelegateType>( dynMethod.CallingConvention, returnType, parameterTypes, allowUnverifiable, doVerify, strictBranchVerification )
+			{
+				DynMethod = dynMethod
+			};
 
-            return ret;
+			return ret;
         }
 
         internal static void CheckAttributesAndConventions(MethodAttributes attributes, CallingConventions callingConvention)
@@ -738,10 +738,12 @@ namespace Sigil
                 parameterTypes = pList.ToArray();
             }
 
-            var ret = new Emit<DelegateType>(callingConvention, returnType, parameterTypes, allowUnverifiableCode, doVerify, strictBranchVerification);
-            ret.MtdBuilder = methodBuilder;
+			var ret = new Emit<DelegateType>( callingConvention, returnType, parameterTypes, allowUnverifiableCode, doVerify, strictBranchVerification )
+			{
+				MtdBuilder = methodBuilder
+			};
 
-            return ret;
+			return ret;
         }
 
         /// <summary>
@@ -812,11 +814,13 @@ namespace Sigil
 
             parameterTypes = pList.ToArray();
 
-            var ret = new Emit<DelegateType>(callingConvention, typeof(void), parameterTypes, allowUnverifiableCode, doVerify, strictBranchVerification);
-            ret.ConstrBuilder = constructorBuilder;
-            ret.IsBuildingConstructor = true;
+			var ret = new Emit<DelegateType>( callingConvention, typeof( void ), parameterTypes, allowUnverifiableCode, doVerify, strictBranchVerification )
+			{
+				ConstrBuilder = constructorBuilder,
+				IsBuildingConstructor = true
+			};
 
-            return ret;
+			return ret;
         }
 
         /// <summary>
@@ -859,10 +863,12 @@ namespace Sigil
 
             var constructorBuilder = type.DefineTypeInitializer();
 
-            var ret = new Emit<DelegateType>(CallingConventions.Standard, typeof(void), TypeHelpers.EmptyTypes, allowUnverifiableCode, doVerify, strictBranchVerification);
-            ret.ConstrBuilder = constructorBuilder;
+			var ret = new Emit<DelegateType>( CallingConventions.Standard, typeof( void ), TypeHelpers.EmptyTypes, allowUnverifiableCode, doVerify, strictBranchVerification )
+			{
+				ConstrBuilder = constructorBuilder
+			};
 
-            return ret;
+			return ret;
         }
 
         private void RemoveInstruction(int index)

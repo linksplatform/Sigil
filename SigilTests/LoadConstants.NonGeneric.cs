@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class LoadConstants
     {
-        [TestMethod]
+        [Test]
         public void NullNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), new [] { typeof(string) }, "E1");
@@ -24,7 +24,7 @@ namespace SigilTests
             Assert.AreEqual(null, d1("Foo"));
         }
 
-        [TestMethod]
+        [Test]
         public void AllBoolsNonGeneric()
         {
             {
@@ -46,7 +46,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void AllIntsNonGeneric()
         {
             for (var i = -1; i <= 256; i++)
@@ -61,7 +61,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void AllUIntsNonGeneric()
         {
             for (uint i = 0; i <= 256; i++)
@@ -86,7 +86,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LongNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(long), System.Type.EmptyTypes);
@@ -98,7 +98,7 @@ namespace SigilTests
             Assert.AreEqual(long.MaxValue, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void ULongNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(ulong), System.Type.EmptyTypes);
@@ -110,7 +110,7 @@ namespace SigilTests
             Assert.AreEqual(ulong.MaxValue, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void FloatNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(float), System.Type.EmptyTypes);
@@ -122,7 +122,7 @@ namespace SigilTests
             Assert.AreEqual(12.34f, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void DoubleNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(double), System.Type.EmptyTypes);
@@ -134,7 +134,7 @@ namespace SigilTests
             Assert.AreEqual(12.34, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void StringNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), System.Type.EmptyTypes);
@@ -146,7 +146,7 @@ namespace SigilTests
             Assert.AreEqual("hello world", d1());
         }
 
-        [TestMethod]
+        [Test]
         public void TypeNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(Type), System.Type.EmptyTypes);
@@ -159,11 +159,11 @@ namespace SigilTests
             Assert.AreEqual(typeof(string), d1());
         }
 
-        [TestMethod]
+        [Test]
         public void MethodNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(RuntimeMethodHandle), System.Type.EmptyTypes);
-            e1.LoadConstant(typeof(RuntimeMethodHandle).GetMethod("GetFunctionPointer"));
+            e1.LoadConstant(typeof(RuntimeMethodHandle).GetMethod("GetHashCode"));
             e1.Return();
 
             var d1 = e1.CreateDelegate<Func<RuntimeMethodHandle>>();
@@ -171,7 +171,7 @@ namespace SigilTests
             Assert.IsNotNull(d1());
         }
 
-        [TestMethod]
+        [Test]
         public void FieldNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(RuntimeFieldHandle), System.Type.EmptyTypes);

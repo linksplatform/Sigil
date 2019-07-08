@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class Local
     {
-        [TestMethod]
+        [Test]
         public void ReuseLabels()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -49,7 +49,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Instructions()
         {
             var e1 = Emit<Action>.NewDynamicMethod("E1");
@@ -72,7 +72,7 @@ namespace SigilTests
             Assert.AreEqual("ldc.i4.s 65\r\nstloc.0 // System.Int32 A\r\nldloc.0 // System.Int32 A\r\npop\r\n\r\nldc.i4.s 66\r\nstloc.1 // System.Int32 B\r\nldloc.1 // System.Int32 B\r\npop\r\n\r\nldc.i4.s 67\r\nstloc.2 // System.Int32 C\r\nldloc.2 // System.Int32 C\r\npop\r\n\r\nldc.i4.s 68\r\nstloc.3 // System.Int32 D\r\nldloc.3 // System.Int32 D\r\npop\r\n\r\nldc.i4.s 69\r\nstloc.s 4 // System.Int32 E\r\nldloc.s 4 // System.Int32 E\r\npop\r\n\r\nldc.i4.s 70\r\nstloc.s 5 // System.Int32 F\r\nldloc.s 5 // System.Int32 F\r\npop\r\n\r\nldc.i4.s 71\r\nstloc.s 6 // System.Int32 G\r\nldloc.s 6 // System.Int32 G\r\npop\r\n\r\nldc.i4.s 72\r\nstloc.s 7 // System.Int32 H\r\nldloc.s 7 // System.Int32 H\r\npop\r\n\r\nldc.i4.s 73\r\nstloc.s 8 // System.Int32 I\r\nldloc.s 8 // System.Int32 I\r\npop\r\n\r\nldc.i4.s 74\r\nstloc.s 9 // System.Int32 J\r\nldloc.s 9 // System.Int32 J\r\npop\r\n\r\nldc.i4.s 75\r\nstloc.s 10 // System.Int32 K\r\nldloc.s 10 // System.Int32 K\r\npop\r\n\r\nldc.i4.s 76\r\nstloc.s 11 // System.Int32 L\r\nldloc.s 11 // System.Int32 L\r\npop\r\n\r\nldc.i4.s 77\r\nstloc.s 12 // System.Int32 M\r\nldloc.s 12 // System.Int32 M\r\npop\r\n\r\nldc.i4.s 78\r\nstloc.s 13 // System.Int32 N\r\nldloc.s 13 // System.Int32 N\r\npop\r\n\r\nldc.i4.s 79\r\nstloc.s 14 // System.Int32 O\r\nldloc.s 14 // System.Int32 O\r\npop\r\n\r\nldc.i4.s 80\r\nstloc.s 15 // System.Int32 P\r\nldloc.s 15 // System.Int32 P\r\npop\r\n\r\nldc.i4.s 81\r\nstloc.s 16 // System.Int32 Q\r\nldloc.s 16 // System.Int32 Q\r\npop\r\n\r\nldc.i4.s 82\r\nstloc.s 17 // System.Int32 R\r\nldloc.s 17 // System.Int32 R\r\npop\r\n\r\nldc.i4.s 83\r\nstloc.s 18 // System.Int32 S\r\nldloc.s 18 // System.Int32 S\r\npop\r\n\r\nldc.i4.s 84\r\nstloc.s 19 // System.Int32 T\r\nldloc.s 19 // System.Int32 T\r\npop\r\n\r\nldc.i4.s 85\r\nstloc.s 20 // System.Int32 U\r\nldloc.s 20 // System.Int32 U\r\npop\r\n\r\nldc.i4.s 86\r\nstloc.s 21 // System.Int32 V\r\nldloc.s 21 // System.Int32 V\r\npop\r\n\r\nldc.i4.s 87\r\nstloc.s 22 // System.Int32 W\r\nldloc.s 22 // System.Int32 W\r\npop\r\n\r\nldc.i4.s 88\r\nstloc.s 23 // System.Int32 X\r\nldloc.s 23 // System.Int32 X\r\npop\r\n\r\nldc.i4.s 89\r\nstloc.s 24 // System.Int32 Y\r\nldloc.s 24 // System.Int32 Y\r\npop\r\n\r\nldc.i4.s 90\r\nstloc.s 25 // System.Int32 Z\r\nldloc.s 25 // System.Int32 Z\r\npop\r\nret", instrs);
         }
 
-        [TestMethod]
+        [Test]
         public void Name()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -81,7 +81,7 @@ namespace SigilTests
             Assert.AreEqual("System.Int32 local", local.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void Reuse()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod();
@@ -107,7 +107,7 @@ namespace SigilTests
             Assert.AreEqual("ldloc.0\r\nldc.i4.1\r\nadd\r\nldc.i4.0\r\nstloc.0\r\nstloc.0\r\nldloc.0\r\nret\r\n", instrs);
         }
 
-        [TestMethod]
+        [Test]
         public void Lookup()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -130,7 +130,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LocalReuseInitializedToDefault()
         {
             {
@@ -173,7 +173,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ReinitializeOptOut()
         {
             var e1 = Emit<Func<int>>.NewDynamicMethod();

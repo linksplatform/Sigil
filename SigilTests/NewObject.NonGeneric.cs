@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace SigilTests
 {
     public partial class NewObject
     {
-        [TestMethod]
+        [Test]
         public void MultiParamNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), new [] { typeof(string), typeof(int), typeof(List<double>) });
@@ -30,7 +30,7 @@ namespace SigilTests
             Assert.AreEqual("hello @10 ==> 1, 2.5, 5.1", d1("hello", 10, new List<double> { 1.0, 2.5, 5.1 }));
         }
 
-        [TestMethod]
+        [Test]
         public void PrivateConstructorNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(string), new [] { typeof(int) }, "E1");
@@ -44,7 +44,7 @@ namespace SigilTests
             Assert.AreEqual("314159", d1(314159));
         }
 
-        [TestMethod]
+        [Test]
         public void ReferenceTypeNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(RT), Type.EmptyTypes, "E1");
@@ -57,7 +57,7 @@ namespace SigilTests
             Assert.AreEqual(314159, d1().A);
         }
 
-        [TestMethod]
+        [Test]
         public void ValueTypeNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(VT), Type.EmptyTypes, "E1");
@@ -70,7 +70,7 @@ namespace SigilTests
             Assert.AreEqual(3.1415926, d1().B);
         }
 
-        [TestMethod]
+        [Test]
         public void ConstructorBuildersNonGeneric()
         {
             var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("ConstructorBuilders"), AssemblyBuilderAccess.Run);

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using Sigil.NonGeneric;
 using System;
@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class Return
     {
-        [TestMethod]
+        [Test]
         public void NonTerminal()
         {
             var e1 = Emit<Action>.NewDynamicMethod();
@@ -31,7 +31,7 @@ namespace SigilTests
             d1();
         }
 
-        [TestMethod]
+        [Test]
         public void Empty()
         {
             var il = Emit<Action>.NewDynamicMethod("Empty");
@@ -42,7 +42,7 @@ namespace SigilTests
             del();
         }
 
-        [TestMethod]
+        [Test]
         public void Constant()
         {
             var il = Emit<Func<int>>.NewDynamicMethod("Constant");

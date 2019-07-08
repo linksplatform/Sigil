@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class Labels
     {
-        [TestMethod]
+        [Test]
         public void LookupNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(bool), new [] { typeof(bool) });

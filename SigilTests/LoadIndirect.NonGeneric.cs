@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class LoadIndirect
     {
-        [TestMethod]
+        [Test]
         public void UnalignedNonGeneric()
         {
             {
@@ -24,7 +24,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public unsafe void AllNonGeneric()
         {
             {

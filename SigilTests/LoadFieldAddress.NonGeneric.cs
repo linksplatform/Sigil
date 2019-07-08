@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SigilTests
 {
     public partial class LoadFieldAddress
     {
-        [TestMethod]
+        [Test]
         public void InstanceNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(TestObj) });
@@ -24,7 +24,7 @@ namespace SigilTests
             Assert.AreEqual(10, d1(new TestObj { Instance = 10 }));
         }
 
-        [TestMethod]
+        [Test]
         public void StaticNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes);

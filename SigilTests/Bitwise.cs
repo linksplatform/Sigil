@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil;
 using System;
 using System.Collections.Generic;
@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SigilTests
 {
-    [TestClass, System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [TestFixture]
     public partial class Bitwise
     {
-        [TestMethod]
+        [Test]
         public void And()
         {
             var e1 = Emit<Func<byte, byte, int>>.NewDynamicMethod("E1");
@@ -26,7 +26,7 @@ namespace SigilTests
             Assert.AreEqual(a & b, d1(a, b));
         }
 
-        [TestMethod]
+        [Test]
         public void Or()
         {
             var e1 = Emit<Func<byte, byte, int>>.NewDynamicMethod("E1");
@@ -42,7 +42,7 @@ namespace SigilTests
             Assert.AreEqual(a | b, d1(a, b));
         }
 
-        [TestMethod]
+        [Test]
         public void Xor()
         {
             var e1 = Emit<Func<byte, byte, int>>.NewDynamicMethod("E1");
@@ -58,7 +58,7 @@ namespace SigilTests
             Assert.AreEqual(a ^ b, d1(a, b));
         }
 
-        [TestMethod]
+        [Test]
         public void Not()
         {
             var e1 = Emit<Func<byte, int>>.NewDynamicMethod("E1");

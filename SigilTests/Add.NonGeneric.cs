@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sigil.NonGeneric;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace SigilTests
 {
     public partial class Add
     {
-        [TestMethod]
+        [Test]
         public unsafe void PointerToPointerNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int*), new[] { typeof(int), typeof(int*) });
@@ -32,7 +32,7 @@ namespace SigilTests
             Assert.AreEqual(((int)ptr1) + 4, (int)ptr2);
         }
 
-        [TestMethod]
+        [Test]
         public unsafe void ByRefToByRefNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(void), new [] { Type.GetType("System.Int32&"), typeof(int), Type.GetType("System.Int32&") });
@@ -50,7 +50,7 @@ namespace SigilTests
             Assert.AreEqual(2, a);
         }
 
-        [TestMethod]
+        [Test]
         public void BlogPostNonGeneric()
         {
             {
@@ -107,7 +107,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void IntIntNonGeneric()
         {
             var il = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes,"IntInt");
@@ -120,7 +120,7 @@ namespace SigilTests
             Assert.AreEqual(3, del());
         }
 
-        [TestMethod]
+        [Test]
         public void IntNativeIntNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes, "E1");
@@ -136,7 +136,7 @@ namespace SigilTests
             Assert.AreEqual(4, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void NativeIntIntNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes, "E1");
@@ -152,7 +152,7 @@ namespace SigilTests
             Assert.AreEqual(4, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void NativeIntNativeIntNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), Type.EmptyTypes, "E1");
@@ -169,7 +169,7 @@ namespace SigilTests
             Assert.AreEqual(4, d1());
         }
 
-        [TestMethod]
+        [Test]
         public void IntPointerNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(int) }, "E1");
@@ -193,7 +193,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void PointerIntNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(int) }, "E1");
@@ -217,7 +217,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void PointerNativeIntNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(int), new [] { typeof(int) }, "E1");
@@ -242,7 +242,7 @@ namespace SigilTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void LongLongNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(long), new [] { typeof(long), typeof(long) }, "E1");
@@ -256,7 +256,7 @@ namespace SigilTests
             Assert.AreEqual(2 * ((long)uint.MaxValue), d1(uint.MaxValue, uint.MaxValue));
         }
 
-        [TestMethod]
+        [Test]
         public void FloatFloatNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(float), new [] { typeof(float), typeof(float) }, "E1");
@@ -270,7 +270,7 @@ namespace SigilTests
             Assert.AreEqual(3.14f + 1.59f, d1(3.14f, 1.59f));
         }
 
-        [TestMethod]
+        [Test]
         public void DoubleDoubleNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(double), new [] { typeof(double), typeof(double) }, "E1");
@@ -284,7 +284,7 @@ namespace SigilTests
             Assert.AreEqual(3.14 + 1.59, d1(3.14, 1.59));
         }
 
-        [TestMethod]
+        [Test]
         public void OverflowNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(double), new [] { typeof(double), typeof(double) }, "E1");
@@ -298,7 +298,7 @@ namespace SigilTests
             Assert.AreEqual(3.14 + 1.59, d1(3.14, 1.59));
         }
 
-        [TestMethod]
+        [Test]
         public void UnsignedOverflowNonGeneric()
         {
             var e1 = Emit.NewDynamicMethod(typeof(double), new [] { typeof(double), typeof(double) }, "E1");
