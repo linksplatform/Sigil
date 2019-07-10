@@ -60,13 +60,27 @@ namespace Sigil.Impl
         public Type Type { get; private set; }
 
         public bool IsReference { get { return Type.IsByRef; } }
+
         public bool IsPointer { get { return Type.IsPointer; } }
+
         public bool IsArray { get { return Type.IsArray; } }
 
+#if NETSTANDARD1_5
+        public bool IsPointerToValueType { get { return Type.IsPointer && Type.GetElementType().GetTypeInfo().IsValueType; } }
+#else
+        public bool IsPointerToValueType { get { return Type.IsPointer && Type.GetElementType().IsValueType; } }
+#endif
+
+        public bool IsInterface { get { return TypeHelpers.IsInterface(Type); } }
+
         public bool HasAttachedMethodInfo { get; private set; }
+
         public CallingConventions CallingConvention { get; private set; }
+
         public Type InstanceType { get; private set; }
+
         public Type ReturnType { get; private set; }
+
         public Type[] ParameterTypes { get; private set; }
 
         public bool IsMarkable { get { return UsedBy != null; } }
