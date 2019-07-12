@@ -1,5 +1,5 @@
 ﻿// TODO: see https://github.com/dotnet/corefx/issues/4543 item 4
-#if !NETSTANDARD 
+#if !NETSTANDARD1_5 
 using Sigil.Impl;
 using System;
 using System.Reflection.Emit;

@@ -8,11 +8,13 @@ using System.Reflection.Emit;
 using System.Linq;
 using System.Reflection;
 using System.IO;
+using System.Threading;
+using System.Globalization;
 
 namespace SigilTests
 {
 // TODO: see https://github.com/dotnet/corefx/issues/4543 item 1
-#if !NETCOREAPP
+#if !NETCOREAPP1_1
 	[TestFixture]
     public class Disassembler
     {
@@ -557,17 +559,56 @@ namespace SigilTests
         [Test]
         public void SingleFloat()
         {
-            Func<float> del = () => 0.5f;
+            var currentCulture = Thread.CurrentThread.CurrentCulture;
 
-            var ops = Sigil.Disassembler<Func<float>>.Disassemble(del);
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
-            var recompiled = ops.EmitAll();
-            Assert.IsNotNull(recompiled);
+                Func<float> del = () => 0.5f;
 
-            string instrs;
-            var r1 = recompiled.CreateDelegate(out instrs);
-            Assert.IsNotNull(r1);
-            Assert.AreEqual("ldc.r4 0.5\r\nret\r\n", instrs);
+                var ops = Sigil.Disassembler<Func<float>>.Disassemble(del);
+
+                var recompiled = ops.EmitAll();
+                Assert.IsNotNull(recompiled);
+
+                string instrs;
+                var r1 = recompiled.CreateDelegate(out instrs);
+                Assert.IsNotNull(r1);
+                Assert.AreEqual("ldc.r4 0.5\r\nret\r\n", instrs);
+            }
+
+
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
+                Func<float> del = () => 0.5f;
+
+                var ops = Sigil.Disassembler<Func<float>>.Disassemble(del);
+
+                var recompiled = ops.EmitAll();
+                Assert.IsNotNull(recompiled);
+
+                string instrs;
+                var r1 = recompiled.CreateDelegate(out instrs);
+                Assert.IsNotNull(r1);
+                Assert.AreEqual("ldc.r4 0.5\r\nret\r\n", instrs);
+            }
+
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("ru");
+                Func<float> del = () => 0.5f;
+
+                var ops = Sigil.Disassembler<Func<float>>.Disassemble(del);
+
+                var recompiled = ops.EmitAll();
+                Assert.IsNotNull(recompiled);
+
+                string instrs;
+                var r1 = recompiled.CreateDelegate(out instrs);
+                Assert.IsNotNull(r1);
+                Assert.AreEqual("ldc.r4 0.5\r\nret\r\n", instrs);
+            }
+
+            Thread.CurrentThread.CurrentCulture = currentCulture;
         }    
     }
 #endif

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
@@ -491,7 +492,7 @@ namespace Sigil.Impl
                         il.Emit(op, f);
                     }
                     
-                    log.AppendLine(op + " " + f); 
+                    log.AppendLine(op + " " + f.ToString(CultureInfo.InvariantCulture)); 
                 }
             );
 
@@ -514,7 +515,7 @@ namespace Sigil.Impl
                         il.Emit(op, d);
                     }
                     
-                    log.AppendLine(op + " " + d);
+                    log.AppendLine(op + " " + d.ToString(CultureInfo.InvariantCulture));
                 });
 
             TraversableBuffer.Add(new BufferedILInstruction { IsInstruction = op });
