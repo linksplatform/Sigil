@@ -1,6 +1,7 @@
 ﻿using Sigil.Impl;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
@@ -14,16 +15,113 @@ namespace Sigil
     /// <typeparam name="DelegateType">The type of delegate being built</typeparam>
     public partial class Emit<DelegateType>
     {
-        internal static readonly ModuleBuilder Module;
+        internal static ModuleBuilder module;
+
+        /// <summary>
+        /// Returns the new module name.
+        /// </summary>
+        public static string ModuleName => module.Name;
+
+        /// <summary>
+        /// Returns the new module full name.
+        /// </summary>
+        public static string ModuleFullName => module.FullyQualifiedName;
+
+        internal static AssemblyBuilder asm;
+
+        /// <summary>
+        /// Returns the new asembly name.
+        /// </summary>
+        public static string AssemblyName => asm.GetName()?.Name;
+
+        /// <summary>
+        /// Returns the the new assembly full name.
+        /// </summary>
+        public static string AssemblyFullName => asm.FullName;
+
+        internal static TypeBuilder type;
+
+        /// <summary>
+        /// Returns the type name.
+        /// </summary>
+        public static string TypeName => type.Name;
+
+        /// <summary>
+        /// Returns the type full name.
+        /// </summary>
+        public static string TypeFullName => type.FullName;
+
+        /// <summary>
+        /// Creates a new dynamic assembly that replaces the actual one.
+        /// </summary>
+        /// <param name="assemblyName">The name of the new Assembly</param>
+        /// <returns>The new AssemblyBuilder</returns>
+        public static AssemblyBuilder DefineAssembly(AssemblyName assemblyName = null)
+        {
+
+#if NET452
+            var path = AppDomain.CurrentDomain.BaseDirectory;
+#else
+            var path = AppContext.BaseDirectory;
+#endif
+
+            var name = assemblyName ?? new AssemblyName("Sigil.Emit.DynamicAssembly");
+
+#if NETSTANDARD
+            asm = AssemblyBuilder.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
+#else
+            asm = AppDomain.CurrentDomain.DefineDynamicAssembly(name, AssemblyBuilderAccess.RunAndSave, path);
+#endif
+
+            module = null;
+            type = null;
+
+            return asm;
+        }
+
+        /// <summary>
+        /// Creates a new dynamic assembly that replaces the actual one.
+        /// </summary>
+        /// <param name="moduleName">The name of the new Module</param>
+        /// <param name="assemblyName">The name of the Module's Assembly</param>
+        /// <param name="emitSymbolInfo">Controls the generation of debugging symbol information</param>
+        /// <returns>The new ModuleBuilder</returns>
+        public static ModuleBuilder DefineModule(string moduleName = null, string assemblyName = null, bool emitSymbolInfo = false)
+        {
+            var name = assemblyName ?? asm.GetName().Name;
+
+            if(!name.EndsWith(".dll"))
+            {
+                name += ".dll";
+            }
+
+#if NETSTANDARD
+            module = asm.DefineDynamicModule(moduleName ?? "DynamicModule");
+#else
+            module = asm.DefineDynamicModule(moduleName ?? "DynamicModule", name, emitSymbolInfo);
+#endif
+            type = null;
+
+            return module;
+        }
+
+        /// <summary>
+        /// Creates a new dynamic assembly that replaces the actual one.
+        /// </summary>
+        /// <param name="name">The name of the new Type</param>
+        /// <returns>The new TypeBuilder</returns>
+        public static TypeBuilder DefineType(string name = null)
+        {
+            type = module.DefineType(name ?? "DynamicType");
+
+            return type;
+        }
 
         static Emit()
         {
-#if NETSTANDARD
-            var asm = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Sigil.Emit.DynamicAssembly"), AssemblyBuilderAccess.Run);
-#else
-            var asm = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName("Sigil.Emit.DynamicAssembly"), AssemblyBuilderAccess.Run);
-#endif
-            Module = asm.DefineDynamicModule("DynamicModule");
+            DefineAssembly();
+            DefineModule();
+            DefineType();
         }
 
         private bool Invalidated;
@@ -191,6 +289,22 @@ namespace Sigil
         internal static Emit<NonGenericPlaceholderDelegate> MakeNonGenericEmit(CallingConventions callConvention, Type returnType, Type[] parameterTypes, bool allowUnverifiable, bool doVerify, bool strictBranchVerification)
         {
             return new Emit<NonGenericPlaceholderDelegate>(callConvention, returnType, parameterTypes, allowUnverifiable, doVerify, strictBranchVerification);
+        }
+
+        /// <summary>
+        /// Saves the assembly to the specified path.
+        /// </summary>
+        public void Save(string assemblyFileName = null)
+        {
+            var methodInfo = MtdBuilder ?? (MethodInfo)DynMethod;
+            var assembly = methodInfo.Module.Assembly;
+            assemblyFileName = assemblyFileName ?? assembly.FullName;
+#if NETSTANDARD
+            var generator = new Lokad.ILPack.AssemblyGenerator();
+            generator.GenerateAssembly(assembly, assemblyFileName); 
+#else
+            asm.Save(Path.GetFileName(assemblyFileName));
+#endif
         }
 
         /// <summary>
@@ -597,7 +711,7 @@ namespace Sigil
 
         internal static Emit<DelegateType> DisassemblerDynamicMethod(Type[] parameters = null, string name = null, ModuleBuilder module = null, bool doVerify = true, bool strictBranchVerification = false)
         {
-            module = module ?? Module;
+            module = module ?? Emit<DelegateType>.module;
 
             name = name ?? AutoNamer.Next("_DynamicMethod");
             

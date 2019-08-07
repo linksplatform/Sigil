@@ -34,6 +34,59 @@ namespace Sigil.NonGeneric
         private EmitShorthand Shorthand;
 
         /// <summary>
+        /// Returns the new module name.
+        /// </summary>
+        public static string ModuleName => Emit<NonGenericPlaceholderDelegate>.module.Name;
+
+        /// <summary>
+        /// Returns the new module full name.
+        /// </summary>
+        public static string ModuleFullName => Emit<NonGenericPlaceholderDelegate>.module.FullyQualifiedName;
+
+        /// <summary>
+        /// Returns the new asembly name.
+        /// </summary>
+        public static string AssemblyName => Emit<NonGenericPlaceholderDelegate>.asm.GetName()?.Name;
+
+        /// <summary>
+        /// Returns the the new assembly full name.
+        /// </summary>
+        public static string AssemblyFullName => Emit<NonGenericPlaceholderDelegate>.asm.FullName;
+
+        /// <summary>
+        /// Returns the type name.
+        /// </summary>
+        public static string TypeName => Emit<NonGenericPlaceholderDelegate>.type.Name;
+
+        /// <summary>
+        /// Returns the type full name.
+        /// </summary>
+        public static string TypeFullName => Emit<NonGenericPlaceholderDelegate>.type.FullName;
+
+        /// <summary>
+        /// Creates a new dynamic assembly that replaces the actual one.
+        /// </summary>
+        /// <param name="assemblyName">The name of the new Assembly</param>
+        /// <returns>The new AssemblyBuilder</returns>
+        public static AssemblyBuilder DefineAssembly(AssemblyName assemblyName = null) => Emit<NonGenericPlaceholderDelegate>.DefineAssembly(assemblyName);
+
+        /// <summary>
+        /// Creates a new dynamic assembly that replaces the actual one.
+        /// </summary>
+        /// <param name="moduleName">The name of the new Module</param>
+        /// <param name="assemblyName">The name of the Module's Assembly</param>
+        /// <param name="emitSymbolInfo">Controls the generation of debugging symbol information</param>
+        /// <returns>The new ModuleBuilder</returns>
+        public static ModuleBuilder DefineModule(string moduleName = null, string assemblyName = null, bool emitSymbolInfo = false) => Emit<NonGenericPlaceholderDelegate>.DefineModule(moduleName, assemblyName, emitSymbolInfo);
+
+        /// <summary>
+        /// Creates a new dynamic assembly that replaces the actual one.
+        /// </summary>
+        /// <param name="name">The name of the new Type</param>
+        /// <returns>The new TypeBuilder</returns>
+        public static TypeBuilder DefineType(string name = null) => Emit<NonGenericPlaceholderDelegate>.DefineType(name);
+
+        /// <summary>
         /// Lookup for declared labels by name.
         /// </summary>
         public LabelLookup Labels { get { return InnerEmit.Labels; } }
@@ -67,6 +120,11 @@ namespace Sigil.NonGeneric
 
             Shorthand = new EmitShorthand(this);
         }
+
+        /// <summary>
+        /// Saves the assembly to the specified path.
+        /// </summary>
+        public void Save(string assemblyFileName = null) => InnerEmit.Save(assemblyFileName);
 
         private static void ValidateReturnAndParameterTypes(Type returnType, Type[] parameterTypes)
         {
@@ -107,7 +165,7 @@ namespace Sigil.NonGeneric
         {
             ValidateReturnAndParameterTypes(returnType, parameterTypes);
 
-            module = module ?? Emit<NonGenericPlaceholderDelegate>.Module;
+            module = module ?? Emit<NonGenericPlaceholderDelegate>.module;
 
             var innerEmit = Emit<NonGenericPlaceholderDelegate>.MakeNonGenericEmit(CallingConventions.Standard, returnType, parameterTypes, Emit<NonGenericPlaceholderDelegate>.AllowsUnverifiableCode(module), doVerify, strictBranchVerification);
 
