@@ -1,6 +1,4 @@
-﻿//  TODO: see https://github.com/dotnet/corefx/issues/4543 item 1
-#if !NETSTANDARD1_5
-using Sigil.Impl;
+﻿using Sigil.Impl;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -3513,4 +3511,3 @@ namespace Sigil
         }
     }
 }
-#endif

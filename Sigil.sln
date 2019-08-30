@@ -3,17 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8B252003-1909-4EA3-8BD9-2D20341F9143}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		appveyor.yml = appveyor.yml
-		global.json = global.json
-		LICENSE.txt = LICENSE.txt
-		NuGet-README.md = NuGet-README.md
-		NuGet.Config = NuGet.Config
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SigilTests", "SigilTests\SigilTests.csproj", "{53266E21-FEBB-4155-9937-75B909134D5E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sigil", "Sigil\Sigil.csproj", "{3F959AB7-A1C2-41DA-A1F3-981EA89A0067}"
