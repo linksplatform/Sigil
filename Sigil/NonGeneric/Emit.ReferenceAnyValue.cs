@@ -1,6 +1,4 @@
-﻿// TODO: see https://github.com/dotnet/corefx/issues/4543 item 4
-#if !NETSTANDARD
-using System;
+﻿using System;
 
 namespace Sigil.NonGeneric
 {
@@ -30,4 +28,3 @@ namespace Sigil.NonGeneric
         }
     }
 }
-#endif

@@ -119,7 +119,6 @@ namespace SigilTests
             Assert.AreEqual("ldarg.0\r\nldc.i4.0\r\nbeq.s l1\r\nldarg.0\r\nldc.i4.1\r\nbeq.s l2\r\nldarg.0\r\nldc.i4.2\r\nbeq.s l3\r\nldstr 'Foo'\r\ntail.call System.String ToString()\r\nret\r\n\r\nl1:\r\nldc.i4.s 123\r\nbox System.Int32\r\ntail.callvirt System.String ToString()\r\nret\r\n\r\nl2:\r\nnewobj Void .ctor()\r\ndup\r\nldvirtftn System.String ToString()\r\ncalli Standard, HasThis System.String \r\nret\r\n\r\nl3:\r\nldstr ''\r\nret\r\n", instrs);
         }
 
-#if !NETCOREAPP1_1
         [Test]
         public void PartialTypeMapping2NonGeneric()
         {
@@ -197,7 +196,6 @@ namespace SigilTests
                 Assert.IsFalse(d1(x, new List<int> { 1, 2, 3 }));
             }
         }
-#endif
 
         [Test]
         public void EnumParamsNonGeneric()

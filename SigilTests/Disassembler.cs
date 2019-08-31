@@ -13,8 +13,6 @@ using System.Globalization;
 
 namespace SigilTests
 {
-// TODO: see https://github.com/dotnet/corefx/issues/4543 item 1
-#if !NETCOREAPP1_1
 	[TestFixture]
     public class Disassembler
     {
@@ -611,7 +609,6 @@ namespace SigilTests
             Thread.CurrentThread.CurrentCulture = currentCulture;
         }    
     }
-#endif
 }
 
 #endif

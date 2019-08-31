@@ -116,8 +116,7 @@ namespace SigilTests
                 Assert.AreEqual("Constructors may only be called directly from within a constructor, use NewObject to allocate a new object with a specific constructor.", e.Message);
             }
         }
-        // TODO: see https://github.com/dotnet/corefx/issues/4543 item 1
-#if !NETCOREAPP
+
 		[Test]
         public void DisassemblingClosure()
         {
@@ -137,7 +136,7 @@ namespace SigilTests
                 Assert.AreEqual("Cannot emit this DisassembledOperations object, check CanEmit before calling any Emit methods", e.Message);
             }
         }
-#endif
+
         [Test]
         public void BadNonTerminalReturn()
         {

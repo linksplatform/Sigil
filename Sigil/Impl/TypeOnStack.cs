@@ -65,11 +65,7 @@ namespace Sigil.Impl
 
         public bool IsArray { get { return Type.IsArray; } }
 
-#if NETSTANDARD1_5
-        public bool IsPointerToValueType { get { return Type.IsPointer && Type.GetElementType().GetTypeInfo().IsValueType; } }
-#else
         public bool IsPointerToValueType { get { return Type.IsPointer && Type.GetElementType().IsValueType; } }
-#endif
 
         public bool IsInterface { get { return TypeHelpers.IsInterface(Type); } }
 
