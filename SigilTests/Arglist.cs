@@ -36,9 +36,7 @@ namespace SigilTests
 
             }
 
-#if NETCOREAPP
-            try
-#endif
+#if !NETCOREAPP
             {
                 var e2 = Emit<Func<int>>.NewDynamicMethod();
                 e2.LoadConstant("hello");
@@ -50,15 +48,10 @@ namespace SigilTests
                 var d2 = e2.CreateDelegate(out instr2);
 
                 var i = d2();
-#if NETCOREAPP
-                Assert.Fail();
-#else
+
                 Assert.AreNotEqual(0, i);
-#endif
             }
-#if NETCOREAPP
-            catch(InvalidProgramException) { }
-#endif       
+#endif
         }
     }
 }

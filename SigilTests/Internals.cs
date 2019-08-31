@@ -20,11 +20,7 @@ namespace SigilTests
         }
         internal static Delegate CreateDelegate(Type delegateType, System.Reflection.MethodInfo method)
         {
-#if NETCOREAPP
-            return method.CreateDelegate(delegateType);
-#else
             return Delegate.CreateDelegate(delegateType, method);
-#endif
         }
         [Test]
         public void OrderBy()
@@ -75,11 +71,7 @@ namespace SigilTests
 
         static Type[] GetAssemblyTypes(Type type)
         {
-#if NETCOREAPP
-            return type.GetTypeInfo().Assembly.GetTypes();
-#else
             return type.Assembly.GetTypes();
-#endif
         }
         [Test]
         public void OrderByDescending()

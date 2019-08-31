@@ -28,8 +28,7 @@ namespace Sigil.Impl
 
         public Type MethodReturnType { get; internal set; }
         public LinqRoot<Type> MethodParameterTypes { get; internal set; }
-        // TODO: see https://github.com/dotnet/corefx/issues/4543 item 4
-#if !NETSTANDARD
+
         public bool TakesTypedReference()
         {
             var instr = this;
@@ -38,7 +37,6 @@ namespace Sigil.Impl
 
             return instr.MethodParameterTypes.Any(p => p == typeof(TypedReference));
         }
-#endif
 
         public bool TakesManagedPointer()
         {

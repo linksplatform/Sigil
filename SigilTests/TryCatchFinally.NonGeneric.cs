@@ -84,11 +84,8 @@ namespace SigilTests
 
             var e3 = Emit.NewDynamicMethod(typeof(void), Type.EmptyTypes, "E3");
             var t3 = e3.BeginExceptionBlock();
-#if NETCOREAPP
-            var c3 = e3.BeginCatchBlock<ArgumentException>(t3);
-#else
             var c3 = e3.BeginCatchBlock<StackOverflowException>(t3);
-#endif
+
             Assert.IsFalse(c3.IsCatchAll);
         }
     }
