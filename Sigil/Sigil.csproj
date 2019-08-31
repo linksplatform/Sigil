@@ -8,12 +8,12 @@
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
 
-    <Version>4.8.41</Version>
-    <PackageVersion>4.8.41</PackageVersion>
-    <InformationalVersion>4.8.41</InformationalVersion>
-    <AssemblyVersion>4.8.41</AssemblyVersion>
-    <FileVersion>4.8.41</FileVersion>
-    <VersionPrefix>4.8.41</VersionPrefix>
+    <Version>4.8.42</Version>
+    <PackageVersion>4.8.42</PackageVersion>
+    <InformationalVersion>4.8.42</InformationalVersion>
+    <AssemblyVersion>4.8.42</AssemblyVersion>
+    <FileVersion>4.8.42</FileVersion>
+    <VersionPrefix>4.8.42</VersionPrefix>
 
     <Title>LinksPlatform's Sigil</Title>
     <Description>A fail-fast validation helper for .NET CIL generation.</Description>
