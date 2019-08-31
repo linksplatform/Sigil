@@ -92,7 +92,7 @@ namespace Sigil
 
             var cil = body.GetILAsByteArray();
             var locals = body.LocalVariables;
-            var @params = asDel.Method.GetParameters();
+            var @params = method.GetParameters();
             var excBlocks = body.ExceptionHandlingClauses;
 
             var convertedParams = new LinqList<ParameterInfo>(@params).Select(s => Parameter.For(s)).ToList();
@@ -115,7 +115,7 @@ namespace Sigil
             var needsInference = new List<SigilTuple<int, Operation<DelegateType>>>();
             var ops = 
                 new List<SigilTuple<int, Operation<DelegateType>>>(
-                    GetOperations(asDel.Method.Module, cil, ps, ls, labels, excBlocks, asLabels, needsInference)
+                    GetOperations(method.Module, cil, ps, ls, labels, excBlocks, asLabels, needsInference)
                 );
 
             var markAt = new Dictionary<int, SigilTuple<int, string>>();
