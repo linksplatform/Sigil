@@ -1,5 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/xbpqslwccr526o5e/branch/master?svg=true)](https://ci.appveyor.com/project/arlm/sigil-vnext/branch/master)
-[![NuGet Version and Downloads count](https://buildstats.info/nuget/Sigil-vNext)](https://www.nuget.org/packages/Sigil-vNext) 
+[![NuGet Version and Downloads count](https://buildstats.info/nuget/Platform.Sigil)](https://www.nuget.org/packages/Platform.Sigil) 
 
 # Sigil
 
